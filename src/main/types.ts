@@ -13,6 +13,11 @@ export type ActivityType =
 export type WasteImpact = 'high' | 'medium' | 'low'
 export type HealthGrade = 'A' | 'B' | 'C' | 'D' | 'F'
 
+export interface Win {
+  id: string
+  text: string
+}
+
 export interface WasteFinding {
   id: string
   title: string
@@ -31,6 +36,7 @@ export interface ParsedSession {
   sessionId: string
   projectId: string
   projectName: string
+  projectPath: string | null
   startTime: number
   endTime: number
   durationMs: number
@@ -62,6 +68,7 @@ export interface ProjectRow {
   project_id: string
   name: string
   display_name: string | null
+  project_path: string | null
   total_cost: number
   total_sessions: number
   last_activity: number | null

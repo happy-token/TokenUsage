@@ -9,6 +9,33 @@ const BASH_TOOLS = new Set(['Bash', 'BashTool', 'PowerShellTool'])
 // UUID pattern — used to extract session_id from filename
 const UUID_RE = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i
 
+// Pricing per 1M tokens (USD). Cache read is ~0.1x input; cache write ~1.25x input.
+const MODEL_PRICING: Record<string, { input: number; output: number; cacheRead: number; cacheWrite: number }> = {
+  'claude-opus-4-7':   { input: 15,  output: 75,  cacheRead: 1.5,  cacheWrite: 18.75 },
+  'claude-opus-4-6':   { input: 15,  output: 75,  cacheRead: 1.5,  cacheWrite: 18.75 },
+  'claude-sonnet-4-6': { input: 3,   output: 15,  cacheRead: 0.3,  cacheWrite: 3.75  },
+  'claude-haiku-4-5':  { input: 0.8, output: 4,   cacheRead: 0.08, cacheWrite: 1.0   },
+}
+
+function computeCostFromTokens(
+  modelName: string,
+  inputTokens: number,
+  outputTokens: number,
+  cacheReadTokens: number,
+  cacheWriteTokens: number
+): number {
+  // Match by prefix to handle versioned model names
+  const pricing = MODEL_PRICING[modelName] ??
+    Object.entries(MODEL_PRICING).find(([k]) => modelName.startsWith(k.split('-').slice(0, 3).join('-')))?.[1]
+  if (!pricing) return 0
+  return (
+    (inputTokens * pricing.input +
+      outputTokens * pricing.output +
+      cacheReadTokens * pricing.cacheRead +
+      cacheWriteTokens * pricing.cacheWrite) / 1_000_000
+  )
+}
+
 export interface ParseResult {
   session: ParsedSession | null
   error: string | null
@@ -30,6 +57,7 @@ export async function parseJsonlFile(
 
   const turns: ParsedTurn[] = []
   let projectName = ''
+  let projectPath = ''
   let gitBranch = ''
   let ccVersion = ''
   let model = ''
@@ -75,6 +103,7 @@ export async function parseJsonlFile(
         // Extract project name from cwd (URL-decoded)
         if (!projectName && record['cwd']) {
           projectName = decodeCwd(record['cwd'] as string)
+          projectPath = decodeProjectPath(record['cwd'] as string)
         }
         if (!gitBranch && record['gitBranch']) gitBranch = record['gitBranch'] as string
         if (!ccVersion && record['version']) ccVersion = record['version'] as string
@@ -85,14 +114,16 @@ export async function parseJsonlFile(
         const role = msg['role'] as string
         if (role !== 'user' && role !== 'assistant') return
 
-        if (!model && msg['model']) model = msg['model'] as string
+        const turnModel = (msg['model'] as string | undefined) ?? ''
+        if (!model && turnModel) model = turnModel
 
         const usage = msg['usage'] as Record<string, number> | undefined
         const inputTokens = usage?.['input_tokens'] ?? 0
         const outputTokens = usage?.['output_tokens'] ?? 0
         const cacheReadTokens = usage?.['cache_read_input_tokens'] ?? 0
         const cacheWriteTokens = usage?.['cache_creation_input_tokens'] ?? 0
-        const costUsd = (record['costUSD'] as number | undefined) ?? 0
+        const costUsd = (record['costUSD'] as number | undefined) ??
+          computeCostFromTokens(turnModel || model, inputTokens, outputTokens, cacheReadTokens, cacheWriteTokens)
         sessionCacheRead += cacheReadTokens
         sessionCacheWrite += cacheWriteTokens
 
@@ -172,6 +203,7 @@ export async function parseJsonlFile(
     sessionId,
     projectId: projectIdFromName(projectName || sessionId),
     projectName: projectName || sessionId,
+    projectPath: projectPath || null,
     startTime,
     endTime,
     durationMs: endTime - startTime,
@@ -191,15 +223,20 @@ export async function parseJsonlFile(
 
 function decodeCwd(cwd: string): string {
   try {
-    // cwd is the actual project directory, e.g. /Users/thinkre/my-project
-    // Just take the last path segment as the project name
     const parts = cwd.replace(/\\/g, '/').split('/')
     const last = parts[parts.length - 1] || parts[parts.length - 2] || cwd
     return decodeURIComponent(last)
   } catch {
-    // fall back to last segment without decode
     const parts = cwd.replace(/\\/g, '/').split('/')
     return parts[parts.length - 1] || cwd
+  }
+}
+
+function decodeProjectPath(cwd: string): string {
+  try {
+    return decodeURIComponent(cwd.replace(/\\/g, '/'))
+  } catch {
+    return cwd.replace(/\\/g, '/')
   }
 }
 

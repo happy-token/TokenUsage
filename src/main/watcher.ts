@@ -29,16 +29,23 @@ export function startWatcher(onUpdate: () => void): void {
     if (existing) clearTimeout(existing)
     pending.set(
       filePath,
-      setTimeout(async () => {
+      setTimeout(() => {
         pending.delete(filePath)
-        await processFile(filePath)
-        onUpdate()
+        processFile(filePath)
+          .then(() => onUpdate())
+          .catch((err) => console.error('[watcher] processFile error:', err))
       }, DEBOUNCE_MS)
     )
   }
 
-  watcher.on('add', handle)
-  watcher.on('change', handle)
+  const handleIfMain = (filePath: string): void => {
+    // Skip subagent transcripts — they don't have session-level UUIDs
+    if (filePath.includes('/subagents/') || /\/agent-[0-9a-f]+/.test(filePath)) return
+    handle(filePath)
+  }
+
+  watcher.on('add', handleIfMain)
+  watcher.on('change', handleIfMain)
 }
 
 async function processFile(filePath: string): Promise<void> {
@@ -69,7 +76,7 @@ async function processFile(filePath: string): Promise<void> {
 
   if (session) {
     upsertSession(session)
-    classifySession(session)
+    classifySession(session, db)
   }
 
   db.prepare(

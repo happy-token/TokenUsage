@@ -4,3 +4,5 @@ dist-electron/
 *.tsbuildinfo
 .DS_Store
 out/
+references/
+docs/

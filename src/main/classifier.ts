@@ -1,4 +1,5 @@
 import type { ActivityType, ParsedSession } from './types'
+import type { Database } from 'better-sqlite3'
 
 const EDIT_TOOLS = new Set([
   'Edit', 'Write', 'FileEditTool', 'FileWriteTool',
@@ -136,11 +137,7 @@ export function getTopShellCommands(session: ParsedSession, limit = 5): string[]
     .map(([cmd]) => cmd)
 }
 
-export function classifySession(session: ParsedSession): void {
-  // Deferred import to avoid loading electron in unit tests
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { getDb } = require('./db') as typeof import('./db')
-  const db = getDb()
+export function classifySession(session: ParsedSession, db: Database): void {
   const activityType = classifyActivity(session)
   const retryCount = countRetries(session)
   const allToolNames = new Set(session.turns.flatMap((t) => t.toolNames))

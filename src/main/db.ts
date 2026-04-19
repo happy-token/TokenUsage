@@ -118,4 +118,9 @@ function runMigrations(): void {
       is_encrypted        INTEGER DEFAULT 0
     );
   `)
+
+  // Migrations for columns added after initial schema
+  try { db.exec(`ALTER TABLE projects ADD COLUMN project_path TEXT`) } catch { /* already exists */ }
+  try { db.exec(`ALTER TABLE waste_cache ADD COLUMN wins_json TEXT`) } catch { /* already exists */ }
+  try { db.exec(`CREATE UNIQUE INDEX IF NOT EXISTS idx_waste_cache_uq ON waste_cache(project_id, period_days)`) } catch { /* already exists */ }
 }

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import type { HealthGrade, WasteFinding } from '../types'
+import type { HealthGrade, WasteFinding, Win } from '../types'
+import { useI18n } from '../contexts/I18nContext'
 
 interface OptimizeResult {
   findings: WasteFinding[]
+  wins: Win[]
   healthScore: number
   healthGrade: HealthGrade
 }
@@ -12,23 +14,33 @@ interface OptimizeProps {
 }
 
 const GRADE_COLOR: Record<HealthGrade, string> = {
-  A: '#22c55e',
-  B: '#84cc16',
-  C: '#f59e0b',
-  D: '#f97316',
-  F: '#ef4444'
+  A: 'var(--color-green)',
+  B: 'var(--color-teal)',
+  C: 'var(--color-yellow)',
+  D: 'var(--color-orange)',
+  F: 'var(--color-red)'
+}
+
+const GRADE_BG: Record<HealthGrade, string> = {
+  A: 'rgba(91,245,160,0.08)',
+  B: 'rgba(91,245,224,0.08)',
+  C: 'rgba(245,200,91,0.08)',
+  D: 'rgba(255,140,66,0.08)',
+  F: 'rgba(245,91,91,0.08)'
 }
 
 const IMPACT_COLOR: Record<string, string> = {
-  high: '#ef4444',
-  medium: '#f59e0b',
-  low: '#94a3b8'
+  high: 'var(--color-red)',
+  medium: 'var(--color-orange)',
+  low: 'var(--color-text-muted)'
 }
 
 export default function Optimize({ projectId }: OptimizeProps): React.ReactElement {
+  const { t } = useI18n()
   const [result, setResult] = useState<OptimizeResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [copied, setCopied] = useState<string | null>(null)
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   function runScan(): void {
     if (!projectId) return
@@ -50,139 +62,268 @@ export default function Optimize({ projectId }: OptimizeProps): React.ReactEleme
     })
   }
 
+  function toggleExpand(id: string): void {
+    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
   if (!projectId) {
     return <div style={{ color: 'var(--color-text-muted)', marginTop: 40 }}>Select a project to scan for waste.</div>
   }
 
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <SkeletonCard height={80} />
+        <SkeletonCard height={100} />
+        <SkeletonCard height={100} />
+      </div>
+    )
+  }
+
+  if (!result) return <></>
+
+  const { findings, wins, healthScore, healthGrade } = result
+  const highCount = findings.filter((f) => f.impact === 'high').length
+  const totalSaved = findings.reduce((s, f) => s + f.tokensSaved, 0)
+
   return (
-    <div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-lg)' }}>
-        <h1 style={{ fontSize: 22, fontWeight: 700 }}>Optimize</h1>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      {/* Health score header */}
+      <div style={{
+        background: GRADE_BG[healthGrade],
+        border: `1px solid var(--color-border)`,
+        borderRadius: 10,
+        padding: '14px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 16,
+      }}>
+        <div style={{ textAlign: 'center', flexShrink: 0 }}>
+          <div style={{ fontSize: 44, fontWeight: 900, color: GRADE_COLOR[healthGrade], lineHeight: 1, letterSpacing: '-0.04em' }}>
+            {healthGrade}
+          </div>
+          <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-text-muted)', marginTop: 2 }}>{t.grade}</div>
+        </div>
+
+        <div style={{ flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 6 }}>
+            <span style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.02em' }}>{healthScore}</span>
+            <span style={{ fontSize: 13, color: 'var(--color-text-muted)' }}>/100</span>
+            {findings.length === 0 ? (
+              <span style={{ fontSize: 12, color: 'var(--color-green)', fontWeight: 600, marginLeft: 4 }}>All clear</span>
+            ) : (
+              <span style={{ fontSize: 12, color: highCount > 0 ? 'var(--color-red)' : 'var(--color-orange)', fontWeight: 600, marginLeft: 4 }}>
+                {findings.length} {t.issues}
+                {highCount > 0 ? ` · ${highCount} high` : ''}
+              </span>
+            )}
+          </div>
+
+          <HealthBar score={healthScore} grade={healthGrade} />
+
+          {totalSaved > 0 && (
+            <div style={{ fontSize: 11, color: 'var(--color-text-muted)', marginTop: 6 }}>
+              Potential savings: ~{fmtTok(totalSaved)} tokens/period
+            </div>
+          )}
+        </div>
+
         <button
           onClick={runScan}
-          disabled={loading}
           style={{
-            padding: '8px 16px',
-            background: 'var(--color-accent)',
-            color: '#fff',
-            borderRadius: 'var(--radius-sm)',
-            fontWeight: 600,
-            opacity: loading ? 0.6 : 1
+            padding: '6px 12px', borderRadius: 7, fontSize: 11, fontWeight: 600,
+            border: '1px solid var(--color-border)', background: 'transparent',
+            color: 'var(--color-text-muted)', cursor: 'pointer', flexShrink: 0
           }}
         >
-          {loading ? 'Scanning...' : 'Scan Now'}
+          ↺ Rescan
         </button>
       </div>
 
-      {loading && <div style={{ color: 'var(--color-text-muted)' }}>Running waste detectors...</div>}
-
-      {result && !loading && (
-        <>
-          {/* Health score */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--space-lg)',
-            background: 'var(--color-surface)',
-            border: '1px solid var(--color-border)',
-            borderRadius: 'var(--radius-lg)',
-            padding: 'var(--space-lg)',
-            marginBottom: 'var(--space-xl)'
-          }}>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{
-                fontSize: 48,
-                fontWeight: 800,
-                color: GRADE_COLOR[result.healthGrade],
-                lineHeight: 1
-              }}>
-                {result.healthGrade}
-              </div>
-              <div style={{ color: 'var(--color-text-muted)', fontSize: 12, marginTop: 4 }}>Grade</div>
-            </div>
-            <div>
-              <div style={{ fontSize: 32, fontWeight: 700 }}>{result.healthScore}/100</div>
-              <div style={{ color: 'var(--color-text-muted)', fontSize: 13 }}>
-                {result.findings.length === 0
-                  ? 'No waste detected — great habits!'
-                  : `${result.findings.length} issue${result.findings.length !== 1 ? 's' : ''} found`}
-              </div>
-            </div>
+      {/* Wins section */}
+      {wins.length > 0 && (
+        <div style={{
+          background: 'rgba(91,245,160,0.04)',
+          border: '1px solid rgba(91,245,160,0.2)',
+          borderRadius: 10,
+          padding: '12px 14px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+            <span style={{ fontSize: 11, color: 'var(--color-green)' }}>✓</span>
+            <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--color-green)' }}>What&apos;s working</span>
           </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {wins.map((w) => (
+              <div key={w.id} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                <span style={{ fontSize: 9, color: 'var(--color-green)', flexShrink: 0, paddingTop: 2 }}>●</span>
+                <span style={{ fontSize: 12 }}>{w.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
-          {result.findings.length === 0 ? (
-            <div style={{
-              textAlign: 'center',
-              padding: 'var(--space-xl)',
-              color: 'var(--color-text-muted)',
-              background: 'var(--color-surface)',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--color-border)'
-            }}>
-              <div style={{ fontSize: 28, marginBottom: 8 }}>✓</div>
-              All clear — no waste patterns detected in this project.
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-              {result.findings.map((f) => (
-                <div
-                  key={f.id}
-                  style={{
-                    background: 'var(--color-surface)',
-                    border: `1px solid var(--color-border)`,
-                    borderLeft: `3px solid ${IMPACT_COLOR[f.impact]}`,
-                    borderRadius: 'var(--radius-md)',
-                    padding: 'var(--space-md)'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--space-md)', marginBottom: 8 }}>
-                    <div>
-                      <div style={{ fontWeight: 600, marginBottom: 4 }}>
-                        <span
-                          style={{
-                            fontSize: 10,
-                            fontWeight: 700,
-                            textTransform: 'uppercase',
-                            color: IMPACT_COLOR[f.impact],
-                            marginRight: 8
-                          }}
-                        >
-                          {f.impact}
-                        </span>
-                        {f.title}
-                      </div>
-                      <div style={{ color: 'var(--color-text-muted)', fontSize: 13 }}>{f.explanation}</div>
-                    </div>
-                    {f.tokensSaved > 0 && (
-                      <div style={{ flexShrink: 0, textAlign: 'right' }}>
-                        <div style={{ fontSize: 11, color: 'var(--color-text-muted)' }}>~saves</div>
-                        <div style={{ fontWeight: 700, color: 'var(--color-success)' }}>
-                          {f.tokensSaved.toLocaleString()}
-                        </div>
-                        <div style={{ fontSize: 11, color: 'var(--color-text-muted)' }}>tokens</div>
-                      </div>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => copyFix(f.id, f.fix.text)}
-                    style={{
-                      padding: '6px 12px',
-                      background: 'var(--color-surface-2)',
-                      border: '1px solid var(--color-border)',
-                      borderRadius: 'var(--radius-sm)',
-                      color: 'var(--color-text)',
-                      fontSize: 12,
-                      fontWeight: 500
-                    }}
-                  >
-                    {copied === f.id ? 'Copied!' : `⎘ ${f.fix.label}`}
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
+      {/* Findings */}
+      {findings.length === 0 ? (
+        <div style={{
+          textAlign: 'center', padding: '32px 0',
+          color: 'var(--color-text-muted)', fontSize: 13,
+          background: 'var(--color-surface)', borderRadius: 10,
+          border: '1px solid var(--color-border)'
+        }}>
+          <div style={{ fontSize: 22, marginBottom: 6, color: 'var(--color-green)' }}>✓</div>
+          No waste patterns found in this project.
+        </div>
+      ) : (
+        <>
+          <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--color-text-muted)', marginTop: 4 }}>
+            {findings.length} {findings.length === 1 ? 'finding' : 'findings'} — sorted by impact
+          </div>
+          {findings.map((f) => (
+            <FindingCard
+              key={f.id}
+              finding={f}
+              copied={copied}
+              expanded={!!expanded[f.id]}
+              onToggle={() => toggleExpand(f.id)}
+              onCopy={copyFix}
+              copiedLabel={t.copied}
+            />
+          ))}
         </>
       )}
     </div>
   )
+}
+
+function FindingCard({
+  finding: f,
+  copied,
+  expanded,
+  onToggle,
+  onCopy,
+  copiedLabel,
+}: {
+  finding: WasteFinding
+  copied: string | null
+  expanded: boolean
+  onToggle: () => void
+  onCopy: (id: string, text: string) => void
+  copiedLabel: string
+}): React.ReactElement {
+  const isCopied = copied === f.id
+  return (
+    <div style={{
+      border: '1px solid var(--color-border)',
+      borderRadius: 10,
+      overflow: 'hidden',
+      background: 'var(--color-surface)',
+    }}>
+      {/* Impact accent bar */}
+      <div style={{ height: 2, background: IMPACT_COLOR[f.impact] }} />
+
+      <div style={{ padding: '12px 14px' }}>
+        {/* Title row */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 6 }}>
+          <span style={{
+            fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em',
+            color: IMPACT_COLOR[f.impact], flexShrink: 0, paddingTop: 2
+          }}>
+            {f.impact}
+          </span>
+          <span style={{ fontSize: 13, fontWeight: 600, flex: 1 }}>{f.title}</span>
+          {f.tokensSaved > 0 && (
+            <span style={{ fontSize: 10, color: 'var(--color-text-muted)', flexShrink: 0, fontVariantNumeric: 'tabular-nums' }}>
+              ~{fmtTok(f.tokensSaved)} tokens
+            </span>
+          )}
+        </div>
+
+        {/* Explanation */}
+        <div style={{ fontSize: 12, color: 'var(--color-text-muted)', marginBottom: 10, lineHeight: 1.5 }}>
+          {f.explanation}
+        </div>
+
+        {/* Fix section */}
+        <div
+          onClick={onToggle}
+          style={{
+            background: 'var(--color-surface-2)',
+            borderRadius: 7,
+            padding: '8px 10px',
+            cursor: 'pointer',
+            border: '1px solid var(--color-border)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--color-text-muted)' }}>
+              {f.fix.label}
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              {expanded && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); onCopy(f.id, f.fix.text) }}
+                  style={{
+                    padding: '3px 8px', borderRadius: 5, fontSize: 10, fontWeight: 600,
+                    border: '1px solid var(--color-border)',
+                    background: isCopied ? 'rgba(91,245,160,0.1)' : 'transparent',
+                    color: isCopied ? 'var(--color-green)' : 'var(--color-text-muted)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  {isCopied ? copiedLabel : '⎘ Copy'}
+                </button>
+              )}
+              <span style={{ fontSize: 9, color: 'var(--color-text-muted)', opacity: 0.6 }}>
+                {expanded ? '▲' : '▼'}
+              </span>
+            </div>
+          </div>
+
+          {expanded && (
+            <pre style={{
+              marginTop: 8, fontSize: 11, fontFamily: 'var(--font-mono)',
+              color: 'var(--color-teal)', whiteSpace: 'pre-wrap', wordBreak: 'break-all',
+              lineHeight: 1.6, margin: '8px 0 0 0', padding: 0, background: 'none',
+              borderTop: '1px solid var(--color-border)', paddingTop: 8,
+            }}>
+              {f.fix.text}
+            </pre>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function HealthBar({ score, grade }: { score: number; grade: HealthGrade }): React.ReactElement {
+  return (
+    <div style={{ height: 4, background: 'var(--color-surface-2)', borderRadius: 2, overflow: 'hidden', width: '100%' }}>
+      <div style={{
+        height: '100%',
+        width: `${score}%`,
+        background: GRADE_COLOR[grade],
+        borderRadius: 2,
+        transition: 'width 0.6s ease'
+      }} />
+    </div>
+  )
+}
+
+function SkeletonCard({ height }: { height: number }): React.ReactElement {
+  return (
+    <div style={{
+      height,
+      background: 'var(--color-surface)',
+      borderRadius: 10,
+      border: '1px solid var(--color-border)',
+      animation: 'pulse 1.5s ease infinite'
+    }} />
+  )
+}
+
+function fmtTok(n: number): string {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
+  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`
+  return String(n)
 }

@@ -16,6 +16,11 @@ export type ActivityType =
 export type WasteImpact = 'high' | 'medium' | 'low'
 export type HealthGrade = 'A' | 'B' | 'C' | 'D' | 'F'
 
+export interface Win {
+  id: string
+  text: string
+}
+
 export interface WasteFinding {
   id: string
   title: string
