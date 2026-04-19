@@ -1,9 +1,9 @@
 /// <reference types="vite/client" />
 
-import type { ClaudeInsightAPI } from '../../preload'
+import type { TokenUsageAPI } from '../../preload'
 
 declare global {
   interface Window {
-    claudeInsight: ClaudeInsightAPI
+    claudeInsight: TokenUsageAPI
   }
 }

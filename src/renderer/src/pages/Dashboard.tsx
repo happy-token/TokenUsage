@@ -47,7 +47,7 @@ export default function Dashboard({ onNavigate }: DashboardProps): React.ReactEl
         <div style={{ fontSize: 40, marginBottom: 16 }}>◎</div>
         <h2 style={{ marginBottom: 8, fontSize: 18 }}>No data yet</h2>
         <p style={{ color: 'var(--color-text-muted)', maxWidth: 360, margin: '0 auto', lineHeight: 1.7 }}>
-          ClaudeInsight looks for sessions in <code style={{ background: 'var(--color-surface-2)', padding: '1px 5px', borderRadius: 4 }}>~/.claude/projects/</code>.
+          TokenUsage looks for sessions in <code style={{ background: 'var(--color-surface-2)', padding: '1px 5px', borderRadius: 4 }}>~/.claude/projects/</code>.
           Start using Claude Code and data will appear here.
         </p>
       </div>

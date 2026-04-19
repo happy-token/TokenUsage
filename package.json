@@ -42,7 +42,7 @@
   },
   "build": {
     "appId": "com.claudeinsight.app",
-    "productName": "ClaudeInsight",
+    "productName": "TokenUsage",
     "directories": {
       "buildResources": "resources"
     },

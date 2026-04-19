@@ -47,4 +47,4 @@ const api = {
 
 contextBridge.exposeInMainWorld('claudeInsight', api)
 
-export type ClaudeInsightAPI = typeof api
+export type TokenUsageAPI = typeof api
