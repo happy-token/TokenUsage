@@ -37,6 +37,7 @@ const api = {
       ipcRenderer.invoke('optimize:aggregated')
   },
   refresh: () => ipcRenderer.invoke('data:refresh'),
+  openExternal: (url: string) => ipcRenderer.invoke('shell:openExternal', url),
   onDataUpdated: (cb: () => void) => {
     const handler = (): void => cb()
     ipcRenderer.on('data-updated', handler)

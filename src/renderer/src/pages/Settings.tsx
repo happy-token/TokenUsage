@@ -3,10 +3,17 @@ import { useTheme } from '../contexts/ThemeContext'
 import { useI18n } from '../contexts/I18nContext'
 import type { Theme } from '../contexts/ThemeContext'
 import type { Lang } from '../contexts/I18nContext'
+import AppLogo from '../components/AppLogo'
+
+const GITHUB_URL = 'https://github.com/Thinkre/TokenUsage'
 
 export default function Settings(): React.ReactElement {
   const { theme, setTheme } = useTheme()
   const { lang, setLang, t } = useI18n()
+
+  function openUrl(url: string): void {
+    window.claudeInsight.openExternal(url)
+  }
 
   return (
     <div style={{ maxWidth: 520 }}>
@@ -43,6 +50,65 @@ export default function Settings(): React.ReactElement {
             v0.1.0
           </span>
         </Row>
+      </Section>
+
+      {/* About */}
+      <Section title={t.about}>
+        <div style={{ padding: '20px 16px 16px' }}>
+          {/* Logo + name */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+            <AppLogo size={36} />
+            <div>
+              <div style={{ fontSize: 16, fontWeight: 800, letterSpacing: '-0.3px' }}>TokenUsage</div>
+              <div style={{ fontSize: 11, color: 'var(--color-text-muted)', marginTop: 1 }}>v0.1.0</div>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p style={{ fontSize: 12.5, color: 'var(--color-text-muted)', lineHeight: 1.65, marginBottom: 16 }}>
+            {t.aboutDesc}
+          </p>
+
+          {/* Privacy badge */}
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'var(--color-surface-2)', border: '1px solid var(--color-border)',
+            borderRadius: 6, padding: '5px 10px', fontSize: 11,
+            color: 'var(--color-text-muted)', marginBottom: 16
+          }}>
+            {t.aboutPrivacy}
+          </div>
+
+          {/* CTA buttons */}
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
+            <ActionButton
+              label={t.aboutStar}
+              primary
+              onClick={() => openUrl(GITHUB_URL)}
+            />
+            <ActionButton
+              label={t.aboutIssue}
+              onClick={() => openUrl(`${GITHUB_URL}/issues`)}
+            />
+          </div>
+
+          {/* Open source note */}
+          <button
+            onClick={() => openUrl(GITHUB_URL)}
+            style={{
+              fontSize: 11, color: 'var(--color-accent)', background: 'none',
+              cursor: 'pointer', textDecoration: 'underline', padding: 0,
+              display: 'block', marginBottom: 14
+            }}
+          >
+            {t.aboutOpenSource} →
+          </button>
+
+          {/* Built with */}
+          <div style={{ fontSize: 10.5, color: 'var(--color-text-muted)', opacity: 0.6 }}>
+            {t.aboutBuiltWith}
+          </div>
+        </div>
       </Section>
     </div>
   )
@@ -118,5 +184,30 @@ function SegmentControl({ options, value, onChange }: {
         )
       })}
     </div>
+  )
+}
+
+function ActionButton({ label, onClick, primary = false }: {
+  label: string
+  onClick: () => void
+  primary?: boolean
+}): React.ReactElement {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        padding: '7px 14px',
+        borderRadius: 7,
+        fontSize: 12,
+        fontWeight: 600,
+        cursor: 'pointer',
+        transition: 'all 120ms ease',
+        background: primary ? 'var(--color-accent)' : 'var(--color-surface-2)',
+        color: primary ? '#fff' : 'var(--color-text)',
+        border: primary ? 'none' : '1px solid var(--color-border)',
+      }}
+    >
+      {label}
+    </button>
   )
 }

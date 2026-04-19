@@ -38,7 +38,7 @@ const EN = {
   allProjects: 'All projects',
   active: 'active',
   noDataYet: 'No data yet',
-  noDataDesc: 'ClaudeInsight watches ~/.claude/projects/. Start using Claude Code and data will appear here.',
+  noDataDesc: 'TokenUsage watches ~/.claude/projects/. Start using Claude Code and data will appear here.',
   totalSpend: 'Total Spend',
   acrossProjects: (n: number) => `across ${n} projects`,
   avgPerSession: (v: string) => `avg ${v}/session`,
@@ -109,6 +109,15 @@ const EN = {
   noMcpUsage: 'No MCP tool usage in this period',
   noData: 'No data',
   calls: 'calls',
+
+  // About
+  about: 'About',
+  aboutDesc: 'TokenUsage is a free, open-source desktop app that reads your local Claude Code session logs and gives you a clear picture of how you spend tokens — by project, activity, model, and time.',
+  aboutOpenSource: 'Open source on GitHub',
+  aboutStar: '⭐ Star on GitHub',
+  aboutIssue: '🐛 Report an Issue',
+  aboutBuiltWith: 'Built with Electron · React · SQLite · TypeScript',
+  aboutPrivacy: '🔒 100% local — no data ever leaves your machine',
 }
 
 const ZH: typeof EN = {
@@ -147,7 +156,7 @@ const ZH: typeof EN = {
   allProjects: '所有项目',
   active: '活跃',
   noDataYet: '暂无数据',
-  noDataDesc: 'ClaudeInsight 监听 ~/.claude/projects/，开始使用 Claude Code 后数据将在此显示。',
+  noDataDesc: 'TokenUsage 监听 ~/.claude/projects/，开始使用 Claude Code 后数据将在此显示。',
   totalSpend: '总花费',
   acrossProjects: (n: number) => `共 ${n} 个项目`,
   avgPerSession: (v: string) => `均次 ${v}`,
@@ -218,6 +227,15 @@ const ZH: typeof EN = {
   noMcpUsage: '此时间段无 MCP 工具使用',
   noData: '暂无数据',
   calls: '次调用',
+
+  // About
+  about: '关于',
+  aboutDesc: 'TokenUsage 是一款免费开源的桌面应用，读取本地 Claude Code 会话日志，直观展示你在各项目、活动类型、模型和时间维度上的 Token 消耗情况。',
+  aboutOpenSource: '在 GitHub 上开源',
+  aboutStar: '⭐ 在 GitHub 上 Star',
+  aboutIssue: '🐛 提交问题反馈',
+  aboutBuiltWith: '基于 Electron · React · SQLite · TypeScript 构建',
+  aboutPrivacy: '🔒 完全本地运行 — 数据不会离开你的设备',
 }
 
 const TRANSLATIONS = { en: EN, zh: ZH }

@@ -1,4 +1,5 @@
 import type { IpcMain } from 'electron'
+import { shell } from 'electron'
 import {
   getProjects,
   getProjectById,
@@ -89,5 +90,9 @@ export function registerIpcHandlers(ipcMain: IpcMain): void {
 
   ipcMain.handle('data:refresh', () => {
     _onRefresh?.()
+  })
+
+  ipcMain.handle('shell:openExternal', (_e, url: string) => {
+    shell.openExternal(url)
   })
 }
