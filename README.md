@@ -1,5 +1,7 @@
 # TokenUsage
 
+English · [中文](./README_CN.md)
+
 A desktop app for visualizing and optimizing your [Claude Code](https://claude.ai/code) token spending. Reads the local JSONL session logs that Claude Code writes, stores them in SQLite, and presents cost/cache/activity analytics in a native Electron window.
 
 ## Features
