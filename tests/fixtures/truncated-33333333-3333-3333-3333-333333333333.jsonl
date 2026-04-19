@@ -1,0 +1,3 @@
+{"sessionId":"33333333-3333-3333-3333-333333333333","uuid":"cccc0001","type":"user","timestamp":"2026-04-19T12:00:00.000Z","cwd":"/Users/thinkre/truncated","version":"2.0","message":{"role":"user","content":[{"type":"text","text":"hi"}]}}
+{"sessionId":"33333333-3333-3333-3333-333333333333","uuid":"cccc0002","type":"assistant","timestamp":"2026-04-19T12:00:05.000Z","cwd":"/Users/thinkre/truncated","costUSD":0.001,"message":{"role":"assistant","model":"claude-sonnet-4-5","content":[],"usage":{"input_tokens":100,"output_tokens":20,"cache_read_input_tokens":0,"cache_creation_input_tokens":0}}}
+{"sessionId":"33333333-3333-3333-3333-333333333

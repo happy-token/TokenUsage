@@ -1,0 +1,32 @@
+{
+  "claude-sonnet-4-5": {
+    "inputCostPer1M": 3.0,
+    "outputCostPer1M": 15.0,
+    "cacheReadCostPer1M": 0.3,
+    "cacheWriteCostPer1M": 3.75
+  },
+  "claude-sonnet-4-6": {
+    "inputCostPer1M": 3.0,
+    "outputCostPer1M": 15.0,
+    "cacheReadCostPer1M": 0.3,
+    "cacheWriteCostPer1M": 3.75
+  },
+  "claude-opus-4-5": {
+    "inputCostPer1M": 15.0,
+    "outputCostPer1M": 75.0,
+    "cacheReadCostPer1M": 1.5,
+    "cacheWriteCostPer1M": 18.75
+  },
+  "claude-opus-4-7": {
+    "inputCostPer1M": 15.0,
+    "outputCostPer1M": 75.0,
+    "cacheReadCostPer1M": 1.5,
+    "cacheWriteCostPer1M": 18.75
+  },
+  "claude-haiku-4-5": {
+    "inputCostPer1M": 0.8,
+    "outputCostPer1M": 4.0,
+    "cacheReadCostPer1M": 0.08,
+    "cacheWriteCostPer1M": 1.0
+  }
+}
