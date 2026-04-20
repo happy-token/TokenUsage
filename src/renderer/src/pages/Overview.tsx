@@ -102,6 +102,7 @@ export default function Overview({ onNavigate }: OverviewProps): React.ReactElem
 
   function fetchAll(p: Period): void {
     setLoading(true)
+    // optimize.global() writes waste_cache; aggregated() reads it — must run in sequence
     Promise.all([
       window.claudeInsight.report.byProject(p),
       window.claudeInsight.report.byDay(null, p),
@@ -109,16 +110,18 @@ export default function Overview({ onNavigate }: OverviewProps): React.ReactElem
       window.claudeInsight.projects.activity(null, p),
       window.claudeInsight.optimize.global(),
       window.claudeInsight.report.global(p),
-      window.claudeInsight.optimize.aggregated(),
-    ]).then(([projs, days, models, activity, health, globalRep, aggFindings]) => {
+    ]).then(([projs, days, models, activity, health, globalRep]) => {
       setProjects(projs as ProjectRow[])
       setDayRows(days as DayRow[])
       setModelRows(models as ModelRow[])
       setActivityRows(activity as ActivityRow[])
       setHealthRows(health as GlobalHealthRow[])
       setGlobalReport(globalRep as GlobalReport)
-      setAggregatedFindings(aggFindings as AggregatedFinding[])
       setLoading(false)
+      // fetch aggregated findings after waste_cache is populated
+      return window.claudeInsight.optimize.aggregated()
+    }).then((aggFindings) => {
+      setAggregatedFindings(aggFindings as AggregatedFinding[])
     })
   }
 
