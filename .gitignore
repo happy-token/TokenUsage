@@ -6,3 +6,4 @@ dist-electron/
 out/
 references/
 docs/
+.env

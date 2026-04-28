@@ -24,12 +24,27 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Prepare signing certificate
+        id: cert
+        run: |
+          echo "$CSC_LINK_BASE64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          echo "path=$RUNNER_TEMP/cert.p12" >> "$GITHUB_OUTPUT"
+        env:
+          CSC_LINK_BASE64: ${{ secrets.CSC_LINK }}
+
       - name: Build & package (macOS)
         run: npm run package -- --mac --publish never
         env:
-          # Disable code signing — remove these two lines if you add a cert
-          CSC_IDENTITY_AUTO_DISCOVERY: false
-          CSC_LINK: ''
+          CSC_LINK: ${{ steps.cert.outputs.path }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          CSC_NAME: ${{ secrets.CSC_NAME }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+
+      - name: Clean up certificate
+        if: always()
+        run: rm -f "$RUNNER_TEMP/cert.p12"
 
       - name: Upload macOS artifacts
         uses: softprops/action-gh-release@v2

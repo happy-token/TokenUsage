@@ -25,12 +25,14 @@
   "devDependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
+    "@electron/notarize": "^3.1.1",
     "@playwright/test": "^1.44.0",
     "@types/better-sqlite3": "^7.6.8",
     "@types/node": "^20.12.7",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "dotenv": "^17.4.2",
     "electron": "^30.5.1",
     "electron-builder": "^24.13.3",
     "electron-vite": "^2.1.0",
@@ -84,6 +86,7 @@
       ],
       "category": "Development"
     },
-    "afterPack": "scripts/after-pack.js"
+    "afterPack": "scripts/after-pack.js",
+    "afterSign": "scripts/notarize.cjs"
   }
 }
