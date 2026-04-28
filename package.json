@@ -1,6 +1,6 @@
 {
   "name": "claude-insight",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Claude Code usage analysis desktop app — optimize your AI coding habits",
   "private": true,
   "type": "module",
