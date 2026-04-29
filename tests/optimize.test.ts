@@ -13,6 +13,20 @@ vi.mock('../src/main/db', () => ({
   getDb: () => mockDb
 }))
 
+// Prevent ghost-agents, ghost-skills, and unused-mcp detectors from reading the real
+// ~/.claude/ directory on the test machine — those detectors are environment-dependent.
+vi.mock('fs', async () => {
+  const actual = await vi.importActual<typeof import('fs')>('fs')
+  const BLOCKED = /[/\\]\.claude[/\\](agents|skills|settings)/
+  return {
+    ...actual,
+    existsSync: (p: string | Buffer | URL) => {
+      if (BLOCKED.test(String(p))) return false
+      return actual.existsSync(p as Parameters<typeof actual.existsSync>[0])
+    }
+  }
+})
+
 import type { WasteFinding } from '../src/main/types'
 
 let mockDb: {
@@ -76,11 +90,11 @@ describe('Optimize — health score calculation', () => {
   it('deducts 15 for high, 7 for medium, 3 for low', () => {
     // Trigger cache-excess (high: -15) + low-read-edit-ratio (medium: -7)
     // cache_write_tokens = 20000 → cache-excess (high)
-    // 2 reads, 5 edits → ratio 0.4 < 2 → low-read-edit-ratio (medium)
+    // 15 reads, 10 edits → ratio 1.5 (1 ≤ ratio < 2 → medium); editCount >= 10 threshold met
     mockDb = makeMockDb(
       [makeSessionRow('s1', 20000)],
       [
-        makeTurnRow('s1', ['Read', 'Read', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit'], [])
+        makeTurnRow('s1', ['Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Read', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit'], [])
       ]
     )
     const { healthScore } = runOptimize('proj2', 30)
@@ -172,10 +186,10 @@ describe('Optimize — cache-excess detector', () => {
 
 describe('Optimize — low-read-edit-ratio detector', () => {
   it('triggers when read:edit ratio < 2', () => {
-    // 1 Read, 3 Edits → ratio 0.33 < 2
+    // 1 Read, 10 Edits → ratio 0.1 < 2, editCount >= 10 threshold met
     mockDb = makeMockDb(
       [makeSessionRow('s1', 0)],
-      [makeTurnRow('s1', ['Read', 'Edit', 'Edit', 'Edit'], [])]
+      [makeTurnRow('s1', ['Read', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit', 'Edit'], [])]
     )
     const { findings } = runOptimize('proj-re-1', 30)
     expect(findings.find((f) => f.id === 'low-read-edit-ratio')).toBeDefined()

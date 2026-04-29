@@ -17,7 +17,7 @@ const MODEL_PRICING: Record<string, { input: number; output: number; cacheRead: 
   'claude-haiku-4-5':  { input: 0.8, output: 4,   cacheRead: 0.08, cacheWrite: 1.0   },
 }
 
-function computeCostFromTokens(
+export function computeCostFromTokens(
   modelName: string,
   inputTokens: number,
   outputTokens: number,

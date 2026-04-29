@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { join } from 'path'
-import { parseJsonlFile, projectIdFromName } from '../src/main/parser'
+import { parseJsonlFile, projectIdFromName, computeCostFromTokens } from '../src/main/parser'
 
 const FIXTURES = join(__dirname, 'fixtures')
 
@@ -172,5 +172,37 @@ describe('projectIdFromName — stable hash', () => {
 
   it('starts with proj_ prefix', () => {
     expect(projectIdFromName('anything')).toMatch(/^proj_[0-9a-f]+$/)
+  })
+})
+
+describe('computeCostFromTokens — pricing math', () => {
+  it('returns 0 for unknown model', () => {
+    expect(computeCostFromTokens('unknown-model-xyz', 1000, 1000, 0, 0)).toBe(0)
+  })
+
+  it('computes correct cost for claude-sonnet-4-6 (input only)', () => {
+    // 1M input tokens @ $3/1M = $3.00
+    const cost = computeCostFromTokens('claude-sonnet-4-6', 1_000_000, 0, 0, 0)
+    expect(cost).toBeCloseTo(3.0, 5)
+  })
+
+  it('computes correct cost for claude-haiku-4-5 (output only)', () => {
+    // 1M output tokens @ $4/1M = $4.00
+    const cost = computeCostFromTokens('claude-haiku-4-5-20251001', 0, 1_000_000, 0, 0)
+    expect(cost).toBeCloseTo(4.0, 5)
+  })
+
+  it('sums all token types correctly for claude-opus-4-7', () => {
+    // 100k input @ $15/1M + 50k output @ $75/1M + 200k cacheRead @ $1.5/1M + 10k cacheWrite @ $18.75/1M
+    // = 1.5 + 3.75 + 0.3 + 0.1875 = 5.7375
+    const cost = computeCostFromTokens('claude-opus-4-7', 100_000, 50_000, 200_000, 10_000)
+    expect(cost).toBeCloseTo(5.7375, 4)
+  })
+
+  it('matches by prefix for versioned model names', () => {
+    // claude-sonnet-4-6-20260301 should match claude-sonnet-4-6 pricing
+    const withSuffix = computeCostFromTokens('claude-sonnet-4-6-20260301', 1_000_000, 0, 0, 0)
+    const exact = computeCostFromTokens('claude-sonnet-4-6', 1_000_000, 0, 0, 0)
+    expect(withSuffix).toBe(exact)
   })
 })
