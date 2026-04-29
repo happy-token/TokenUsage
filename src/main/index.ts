@@ -257,10 +257,10 @@ app.whenReady().then(() => {
   })
 
   // Packaged: models.json sits in resources/ next to the app bundle.
-  // Dev: __dirname is dist-electron/main/ after build, so 3 levels up to repo root.
+  // Dev: __dirname is dist-electron/main/ — 2 levels up to repo root.
   const modelsPath = app.isPackaged
     ? join(process.resourcesPath, 'models.json')
-    : join(__dirname, '../../../resources/models.json')
+    : join(__dirname, '../../resources/models.json')
   initPricing(modelsPath)
 
   initDb()
