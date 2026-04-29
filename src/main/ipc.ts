@@ -93,6 +93,10 @@ export function registerIpcHandlers(ipcMain: IpcMain): void {
   })
 
   ipcMain.handle('shell:openExternal', (_e, url: string) => {
+    if (typeof url !== 'string') return
+    let parsed: URL
+    try { parsed = new URL(url) } catch { return }
+    if (!['https:', 'http:'].includes(parsed.protocol)) return
     shell.openExternal(url)
   })
 }

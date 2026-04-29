@@ -14,7 +14,9 @@ export function initDb(): void {
   const newPath = join(app.getPath('userData'), 'tokenusage.db')
   let dbPath = newPath
   try {
-    if (existsSync(oldPath) && !existsSync(newPath)) {
+    if (existsSync(oldPath) && existsSync(newPath)) {
+      console.warn('Both claudeinsight.db and tokenusage.db exist; using tokenusage.db')
+    } else if (existsSync(oldPath)) {
       renameSync(oldPath, newPath)
     }
   } catch (err) {

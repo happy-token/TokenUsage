@@ -72,7 +72,7 @@ function makeSessionRow(id: string, cacheWriteTokens: number, costUsd = 0.01) {
 }
 
 // Import after mock is set up
-const { runOptimize } = await import('../src/main/optimize')
+const { runOptimize, scoreToGrade } = await import('../src/main/optimize')
 
 describe('Optimize — health score calculation', () => {
   it('returns score 100 and grade A when no findings', () => {
@@ -141,12 +141,7 @@ describe('Optimize — grade thresholds', () => {
 
   for (const [score, expectedGrade] of cases) {
     it(`score ${score} → grade ${expectedGrade}`, () => {
-      // We can't call scoreToGrade directly (private), but we can infer it from health scoring.
-      // Instead directly test the grade mapping via a known detector output:
-      // Simulate exactly enough findings to hit the target score bracket.
-      // This is a bit indirect — just test the exported runOptimize output.
-      // Skip if score doesn't map to a simple combination; test key boundaries only.
-      expect(expectedGrade).toBeTruthy() // placeholder, see integration tests below
+      expect(scoreToGrade(score)).toBe(expectedGrade)
     })
   }
 })

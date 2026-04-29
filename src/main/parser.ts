@@ -18,11 +18,13 @@ interface ModelPricing {
 
 let pricingTable: Record<string, ModelPricing> = {}
 
-export function initPricing(path: string): void {
+export function initPricing(path: string): boolean {
   try {
     pricingTable = JSON.parse(readFileSync(path, 'utf-8')) as Record<string, ModelPricing>
+    return true
   } catch (err) {
     console.warn('Failed to load pricing from', path, err)
+    return false
   }
 }
 

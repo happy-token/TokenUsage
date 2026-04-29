@@ -6,6 +6,9 @@ import type { HealthGrade, WasteFinding, WasteImpact, Win } from './types'
 
 const CACHE_TTL_MS = 60 * 60 * 1000
 
+const READ_TOOLS = new Set(['Read', 'Glob', 'Grep', 'LS', 'FileReadTool'])
+const EDIT_TOOLS = new Set(['Edit', 'Write', 'FileEditTool', 'FileWriteTool', 'str_replace_editor'])
+
 interface TurnRow {
   tool_names: string
   bash_commands: string
@@ -218,8 +221,6 @@ function computeWins(
   }
 
   if (!findings.find((f) => f.id === 'low-read-edit-ratio')) {
-    const READ_TOOLS = new Set(['Read', 'Glob', 'Grep', 'LS', 'FileReadTool'])
-    const EDIT_TOOLS = new Set(['Edit', 'Write', 'FileEditTool', 'FileWriteTool', 'str_replace_editor'])
     let reads = 0, edits = 0
     for (const t of turns) {
       const tools: string[] = safeParseJson(t.tool_names, [])
@@ -251,8 +252,6 @@ function detectJunkReads(turns: TurnRow[]): WasteFinding | null {
 
   let junkCount = 0
   for (const t of turns) {
-    const tools: string[] = safeParseJson(t.tool_names, [])
-    if (!tools.includes('Read') && !tools.includes('FileReadTool')) continue
     const cmds: string[] = safeParseJson(t.bash_commands, [])
     for (const cmd of cmds) {
       if (JUNK_PATTERNS.some((p) => p.test(cmd))) junkCount++
@@ -279,8 +278,6 @@ function detectDuplicateReads(turns: TurnRow[]): WasteFinding | null {
   const sessionFiles = new Map<string, Map<string, number>>()
 
   for (const t of turns) {
-    const tools: string[] = safeParseJson(t.tool_names, [])
-    if (!tools.includes('Read') && !tools.includes('FileReadTool')) continue
     const cmds: string[] = safeParseJson(t.bash_commands, [])
     const map = sessionFiles.get(t.session_id) ?? new Map()
     for (const cmd of cmds) {
@@ -313,9 +310,6 @@ function detectDuplicateReads(turns: TurnRow[]): WasteFinding | null {
 }
 
 function detectLowReadEditRatio(turns: TurnRow[]): WasteFinding | null {
-  const EDIT_TOOLS = new Set(['Edit', 'Write', 'FileEditTool', 'FileWriteTool', 'str_replace_editor'])
-  const READ_TOOLS = new Set(['Read', 'Glob', 'Grep', 'LS', 'FileReadTool'])
-
   let readCount = 0
   let editCount = 0
 
@@ -411,7 +405,6 @@ function detectOverloadedClaudeMd(projectId: string): WasteFinding | null {
 
   const dirs: string[] = []
   if (proj?.project_path) dirs.push(proj.project_path)
-  dirs.push(process.cwd())
 
   for (const dir of dirs) {
     if (!dir) continue
@@ -570,7 +563,7 @@ function computeHealthScore(findings: WasteFinding[]): number {
   return Math.max(0, 100 - deduction)
 }
 
-function scoreToGrade(score: number): HealthGrade {
+export function scoreToGrade(score: number): HealthGrade {
   if (score >= 90) return 'A'
   if (score >= 75) return 'B'
   if (score >= 55) return 'C'

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, shell, Tray, Menu, nativeImage } from 'electron'
+import { app, BrowserWindow, ipcMain, shell, Tray, Menu, nativeImage, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { initDb } from './db'
@@ -261,7 +261,12 @@ app.whenReady().then(() => {
   const modelsPath = app.isPackaged
     ? join(process.resourcesPath, 'models.json')
     : join(__dirname, '../../resources/models.json')
-  initPricing(modelsPath)
+  if (!initPricing(modelsPath)) {
+    dialog.showErrorBox(
+      'TokenUsage — missing models.json',
+      `Could not load pricing data from:\n${modelsPath}\n\nCost calculations will show $0.00 until this is fixed.`
+    )
+  }
 
   initDb()
 
