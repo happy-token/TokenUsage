@@ -10,7 +10,7 @@ export function getDb(): Database.Database {
 }
 
 export function initDb(): void {
-  const oldPath = join(app.getPath('userData'), 'claudeinsight.db')
+  const oldPath = join(app.getPath('userData'), 'claudeinsight.db') // intentional: legacy filename for one-time migration
   const newPath = join(app.getPath('userData'), 'tokenusage.db')
   let dbPath = newPath
   try {
