@@ -17,8 +17,8 @@ export default function AppLogo({ size = 24 }: AppLogoProps): React.ReactElement
     >
       <defs>
         <linearGradient id={id} x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#a394f8" />
-          <stop offset="100%" stopColor="#5b42d4" />
+          <stop offset="0%" stopColor="#f0b429" />
+          <stop offset="100%" stopColor="#d99e22" />
         </linearGradient>
       </defs>
 

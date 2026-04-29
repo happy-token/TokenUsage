@@ -22,7 +22,7 @@ interface ActivityRow {
 }
 
 const ACTIVITY_COLOR: Record<string, string> = {
-  feature: '#6366f1',
+  feature: '#f0b429',
   debugging: '#ef4444',
   refactoring: '#f59e0b',
   testing: '#22c55e',

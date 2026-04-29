@@ -143,7 +143,7 @@ export default function ProjectDetail({ projectId, onNavigate }: ProjectDetailPr
                 style={{
                   padding: '5px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600,
                   border: '1px solid var(--color-red)',
-                  color: 'var(--color-red)', background: 'rgba(245,91,91,0.1)',
+                  color: 'var(--color-red)', background: 'rgba(248,113,113,0.1)',
                   cursor: 'pointer'
                 }}
               >
@@ -305,7 +305,7 @@ function ProjectOverview({ project, sessions, setSessions }: {
                       <button
                         onClick={() => handleDeleteSession(s.session_id)}
                         style={{
-                          fontSize: 10, color: 'var(--color-red)', background: 'rgba(245,91,91,0.1)',
+                          fontSize: 10, color: 'var(--color-red)', background: 'rgba(248,113,113,0.1)',
                           border: '1px solid var(--color-red)', borderRadius: 4,
                           padding: '1px 6px', cursor: 'pointer', fontWeight: 600
                         }}

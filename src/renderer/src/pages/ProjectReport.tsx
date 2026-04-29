@@ -56,7 +56,7 @@ export default function ProjectReport({ projectId }: ProjectReportProps): React.
                 borderRadius: 16,
                 border: '1px solid',
                 borderColor: period === p ? 'var(--color-orange)' : 'var(--color-border)',
-                background: period === p ? 'rgba(255,140,66,0.1)' : 'transparent',
+                background: period === p ? 'rgba(245, 158, 11, 0.1)' : 'transparent',
                 color: period === p ? 'var(--color-orange)' : 'var(--color-text-muted)',
                 fontSize: 11,
                 fontWeight: 600,

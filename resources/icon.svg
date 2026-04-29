@@ -1,8 +1,8 @@
 <svg width="1024" height="1024" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bg" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#9B8DF5" />
-      <stop offset="100%" stop-color="#6750DA" />
+      <stop offset="0%" stop-color="#f0b429" />
+      <stop offset="100%" stop-color="#d99e22" />
     </linearGradient>
     <clipPath id="squircle">
       <rect x="4" y="4" width="32" height="32" rx="7" ry="7" />

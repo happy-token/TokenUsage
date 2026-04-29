@@ -22,11 +22,11 @@ const GRADE_COLOR: Record<HealthGrade, string> = {
 }
 
 const GRADE_BG: Record<HealthGrade, string> = {
-  A: 'rgba(91,245,160,0.08)',
-  B: 'rgba(91,245,224,0.08)',
-  C: 'rgba(245,200,91,0.08)',
-  D: 'rgba(255,140,66,0.08)',
-  F: 'rgba(245,91,91,0.08)'
+  A: 'rgba(61, 214, 140, 0.08)',
+  B: 'rgba(45, 212, 191, 0.08)',
+  C: 'rgba(251, 191, 36, 0.08)',
+  D: 'rgba(245, 158, 11, 0.08)',
+  F: 'rgba(248, 113, 113, 0.08)'
 }
 
 const IMPACT_COLOR: Record<string, string> = {
@@ -143,8 +143,8 @@ export default function Optimize({ projectId }: OptimizeProps): React.ReactEleme
       {/* Wins section */}
       {wins.length > 0 && (
         <div style={{
-          background: 'rgba(91,245,160,0.04)',
-          border: '1px solid rgba(91,245,160,0.2)',
+          background: 'rgba(61, 214, 140, 0.04)',
+          border: '1px solid rgba(61, 214, 140, 0.2)',
           borderRadius: 10,
           padding: '12px 14px',
         }}>
@@ -266,7 +266,7 @@ function FindingCard({
                   style={{
                     padding: '3px 8px', borderRadius: 5, fontSize: 10, fontWeight: 600,
                     border: '1px solid var(--color-border)',
-                    background: isCopied ? 'rgba(91,245,160,0.1)' : 'transparent',
+                    background: isCopied ? 'rgba(61, 214, 140, 0.1)' : 'transparent',
                     color: isCopied ? 'var(--color-green)' : 'var(--color-text-muted)',
                     cursor: 'pointer'
                   }}

@@ -1,84 +1,94 @@
 :root,
 [data-theme="dark"] {
-  /* Surfaces — near-black with a faint blue-slate undertone (Linear-style) */
-  --color-bg:        #0a0b0f;
-  --color-surface:   #111318;
-  --color-surface-2: #181c24;
-  --color-border:    #1f2433;
+  /* Surfaces — near-black with faint warm-gray undertone (dev-tool style) */
+  --color-bg:        #0f0f11;
+  --color-surface:   #1a1a1f;
+  --color-surface-2: #242429;
+  --color-surface-3: #2e2e35;   /* hover state */
+  --color-border:    #2e2b1a;
+  --color-border-focus: #f0b429;
 
-  /* Text */
-  --color-text:      #e8eaf0;
-  --color-text-muted:#6b738a;
+  /* Text — improved contrast ratios */
+  --color-text:       #e8e8ec;   /* 15.5:1 on bg */
+  --color-text-muted: #8b8b9e;   /* 7.7:1 on bg, was #6b738a */
+  --color-text-faint: #5a5a6e;   /* 4.5:1 on bg */
 
-  /* Accent — electric violet-indigo (Raycast / Linear) */
-  --color-accent:       #7c6ef5;
-  --color-accent-hover: #9d92f8;
+  /* Accent — Amber gold（HappyCode palette）*/
+  --color-accent:       #f0b429;
+  --color-accent-dim:   rgba(240, 180, 41, 0.12);
+  --color-accent-hover: #d99e22;
 
-  /* Semantic palette — desaturated neons on near-black read cleanly */
-  --color-orange: #f59440;
-  --color-blue:   #4e9cf7;
-  --color-teal:   #3dd6c0;
-  --color-purple: #a87cf8;
-  --color-yellow: #f0c040;
-  --color-pink:   #f06eb8;
-  --color-green:  #3dd68a;
-  --color-red:    #f25858;
+  /* 状态 — 与 HappyCode 一致 */
+  --color-success: #3dd68c;
+  --color-warning: #f59e0b;
+  --color-danger:  #f87171;
+  --color-info:    #60a5fa;
 
-  --color-success: #3dd68a;
-  --color-warning: #f0c040;
-  --color-danger:  #f25858;
-  --color-info:    #4e9cf7;
+  /* 语义色扩展 */
+  --color-orange: #f59e0b;
+  --color-blue:   #60a5fa;
+  --color-teal:   #2dd4bf;
+  --color-purple: #a78bfa;
+  --color-yellow: #fbbf24;
+  --color-pink:   #f472b6;
+  --color-green:  #3dd68c;
+  --color-red:    #f87171;
 
   /* Shared tokens */
-  --radius-sm: 5px;
-  --radius-md: 9px;
-  --radius-lg: 14px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
 
   --space-xs: 4px;
   --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 40px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
 
   --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'SF Mono', 'JetBrains Mono', 'Fira Code', Consolas, monospace;
 
   /* Subtle glow for accent highlights */
-  --shadow-accent: 0 0 0 1px rgba(124,110,245,0.25), 0 2px 8px rgba(124,110,245,0.12);
+  --shadow-accent: 0 0 0 1px rgba(240,180,41,0.25), 0 2px 8px rgba(240,180,41,0.12);
   --shadow-card:   0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.25);
 }
 
 [data-theme="light"] {
-  /* Surfaces — warm white with a slight cool tint (Notion / Figma) */
-  --color-bg:        #f5f6f9;
+  /* Surfaces — warm white with slight cool tint */
+  --color-bg:        #fafafa;
   --color-surface:   #ffffff;
-  --color-surface-2: #f0f1f5;
-  --color-border:    #e3e5ed;
+  --color-surface-2: #f4f4f6;
+  --color-surface-3: #e8e8ec;
+  --color-border:    #e2e2e8;
+  --color-border-focus: #c27a0e;
 
   /* Text */
-  --color-text:      #111420;
-  --color-text-muted:#717589;
+  --color-text:       #0f0f11;
+  --color-text-muted: #5a5a6e;
+  --color-text-faint: #9a9aaa;
 
-  /* Accent — same violet family, slightly deeper for light */
-  --color-accent:       #5b4fe0;
-  --color-accent-hover: #4037c4;
+  /* Accent — warm amber for light bg */
+  --color-accent:       #c27a0e;
+  --color-accent-dim:   rgba(194, 122, 14, 0.12);
+  --color-accent-hover: #a3680b;
 
   /* Semantic palette — vivid but not garish on white */
-  --color-orange: #e07428;
+  --color-orange: #ea8c0b;
   --color-blue:   #2a7ae8;
   --color-teal:   #0da394;
   --color-purple: #7c52d8;
   --color-yellow: #c48a00;
   --color-pink:   #c4449a;
-  --color-green:  #1a9e5c;
-  --color-red:    #d63535;
+  --color-green:  #16a34a;
+  --color-red:    #dc2626;
 
-  --color-success: #1a9e5c;
+  --color-success: #16a34a;
   --color-warning: #c48a00;
-  --color-danger:  #d63535;
-  --color-info:    #2a7ae8;
+  --color-danger:  #dc2626;
+  --color-info:    #2563eb;
 
-  --shadow-accent: 0 0 0 1px rgba(91,79,224,0.2), 0 2px 8px rgba(91,79,224,0.1);
+  --shadow-accent: 0 0 0 1px rgba(194,122,14,0.2), 0 2px 8px rgba(194,122,14,0.1);
   --shadow-card:   0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
 }
 

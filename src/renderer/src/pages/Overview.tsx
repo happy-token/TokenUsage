@@ -516,7 +516,7 @@ export default function Overview({ onNavigate }: OverviewProps): React.ReactElem
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 10 }}>
             {aggregatedFindings.map(f => {
               const impactColor = f.impact === 'high' ? 'var(--color-red)' : f.impact === 'medium' ? 'var(--color-yellow)' : 'var(--color-text-muted)'
-              const impactBg = f.impact === 'high' ? 'rgba(245,91,91,0.07)' : f.impact === 'medium' ? 'rgba(245,200,91,0.07)' : 'transparent'
+              const impactBg = f.impact === 'high' ? 'rgba(248,113,113,0.07)' : f.impact === 'medium' ? 'rgba(245,158,11,0.07)' : 'transparent'
               return (
                 <div key={f.id} style={{ background: impactBg, border: '1px solid var(--color-border)', borderRadius: 8, padding: '10px 12px', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ height: 2, background: impactColor, borderRadius: 1, position: 'absolute', top: 0, left: 0, right: 0 }} />
