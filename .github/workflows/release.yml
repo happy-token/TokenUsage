@@ -16,13 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
       - name: Prepare signing certificate
         id: cert
@@ -33,7 +37,7 @@ jobs:
           CSC_LINK_BASE64: ${{ secrets.CSC_LINK }}
 
       - name: Build & package (macOS)
-        run: npm run package -- --mac --publish never
+        run: pnpm run package -- --mac --publish never
         env:
           CSC_LINK: ${{ steps.cert.outputs.path }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
@@ -61,16 +65,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
       - name: Build & package (Windows)
-        run: npm run package -- --win --publish never
+        run: pnpm run package -- --win --publish never
 
       - name: Upload Windows artifacts
         uses: softprops/action-gh-release@v2
@@ -85,16 +93,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
       - name: Build & package (Linux)
-        run: npm run package -- --linux --publish never
+        run: pnpm run package -- --linux --publish never
 
       - name: Upload Linux artifacts
         uses: softprops/action-gh-release@v2
