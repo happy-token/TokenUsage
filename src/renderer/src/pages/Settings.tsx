@@ -12,7 +12,7 @@ export default function Settings(): React.ReactElement {
   const { lang, setLang, t } = useI18n()
 
   function openUrl(url: string): void {
-    window.claudeInsight.openExternal(url)
+    window.tokenUsage.openExternal(url)
   }
 
   return (

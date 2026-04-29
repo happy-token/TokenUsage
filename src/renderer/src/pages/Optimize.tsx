@@ -45,7 +45,7 @@ export default function Optimize({ projectId }: OptimizeProps): React.ReactEleme
   function runScan(): void {
     if (!projectId) return
     setLoading(true)
-    window.claudeInsight.optimize.run(projectId).then((r) => {
+    window.tokenUsage.optimize.run(projectId).then((r) => {
       setResult(r as OptimizeResult)
       setLoading(false)
     })

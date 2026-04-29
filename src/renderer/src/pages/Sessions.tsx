@@ -47,13 +47,13 @@ export default function Sessions({ projectId }: SessionsProps): React.ReactEleme
   useEffect(() => {
     if (!projectId) return
     setLoading(true)
-    window.claudeInsight.projects.sessions(projectId, 50).then(async (rows) => {
+    window.tokenUsage.projects.sessions(projectId, 50).then(async (rows) => {
       const sessionRows = rows as SessionRow[]
       setSessions(sessionRows)
 
       const actMap = new Map<string, ActivityRow>()
       for (const s of sessionRows) {
-        const a = await window.claudeInsight.sessions.activity(s.session_id)
+        const a = await window.tokenUsage.sessions.activity(s.session_id)
         if (a) actMap.set(s.session_id, a as ActivityRow)
       }
       setActivities(actMap)

@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, shell, Tray, Menu, nativeImage } from 'ele
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { initDb } from './db'
+import { initPricing } from './parser'
 import { startWatcher } from './watcher'
 import { registerIpcHandlers, setRefreshCallback } from './ipc'
 import { getTrayStats } from './store'
@@ -249,11 +250,18 @@ function createWindow(): void {
 let notifyRenderer: () => void
 
 app.whenReady().then(() => {
-  electronApp.setAppUserModelId('com.claudeinsight.app')
+  electronApp.setAppUserModelId('com.tokenusage.app')
 
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
+
+  // Packaged: models.json sits in resources/ next to the app bundle.
+  // Dev: __dirname is dist-electron/main/ after build, so 3 levels up to repo root.
+  const modelsPath = app.isPackaged
+    ? join(process.resourcesPath, 'models.json')
+    : join(__dirname, '../../../resources/models.json')
+  initPricing(modelsPath)
 
   initDb()
 

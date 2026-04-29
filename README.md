@@ -35,10 +35,10 @@ A desktop app for visualizing and optimizing your [Claude Code](https://claude.a
 
 ```bash
 # Install dependencies (also compiles native SQLite addon)
-npm install
+pnpm install
 
 # Start in development mode
-npm run dev
+pnpm run dev
 ```
 
 The app automatically finds Claude Code session logs at `~/.claude/projects/**/*.jsonl` and begins parsing them. No configuration required.
@@ -47,13 +47,13 @@ The app automatically finds Claude Code session logs at `~/.claude/projects/**/*
 
 | Command | Description |
 |---|---|
-| `npm run dev` | Start Electron + Vite dev server with HMR |
-| `npm run build` | Production build |
-| `npm run package` | Build + package distributable (`.dmg`, `.exe`, `.AppImage`) |
-| `npm test` | Run unit tests (Vitest) |
-| `npm run test:watch` | Watch mode |
-| `npm run test:e2e` | Playwright end-to-end tests |
-| `npm run typecheck` | TypeScript type check without emitting |
+| `pnpm run dev` | Start Electron + Vite dev server with HMR |
+| `pnpm run build` | Production build |
+| `pnpm run package` | Build + package distributable (`.dmg`, `.exe`, `.AppImage`) |
+| `pnpm test` | Run unit tests (Vitest) |
+| `pnpm run test:watch` | Watch mode |
+| `pnpm run test:e2e` | Playwright end-to-end tests |
+| `pnpm run typecheck` | TypeScript type check without emitting |
 
 ## Project structure
 
@@ -69,7 +69,7 @@ src/
 │   ├── ipc.ts      # IPC handler registry
 │   └── store.ts    # In-memory tray stats cache
 ├── preload/
-│   └── index.ts    # Context bridge (exposes window.claudeInsight)
+│   └── index.ts    # Context bridge (exposes window.tokenUsage)
 └── renderer/
     └── src/
         ├── App.tsx             # Root component + routing

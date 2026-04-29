@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { join } from 'path'
-import { parseJsonlFile, projectIdFromName, computeCostFromTokens } from '../src/main/parser'
+import { parseJsonlFile, projectIdFromName, computeCostFromTokens, initPricing } from '../src/main/parser'
 
 const FIXTURES = join(__dirname, 'fixtures')
 
@@ -176,6 +176,10 @@ describe('projectIdFromName — stable hash', () => {
 })
 
 describe('computeCostFromTokens — pricing math', () => {
+  beforeAll(() => {
+    initPricing(join(__dirname, '../resources/models.json'))
+  })
+
   it('returns 0 for unknown model', () => {
     expect(computeCostFromTokens('unknown-model-xyz', 1000, 1000, 0, 0)).toBe(0)
   })

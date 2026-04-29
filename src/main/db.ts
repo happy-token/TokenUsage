@@ -1,5 +1,6 @@
 import Database from 'better-sqlite3'
 import { app } from 'electron'
+import { existsSync, renameSync } from 'fs'
 import { join } from 'path'
 
 let db: Database.Database
@@ -9,7 +10,17 @@ export function getDb(): Database.Database {
 }
 
 export function initDb(): void {
-  const dbPath = join(app.getPath('userData'), 'claudeinsight.db')
+  const oldPath = join(app.getPath('userData'), 'claudeinsight.db')
+  const newPath = join(app.getPath('userData'), 'tokenusage.db')
+  let dbPath = newPath
+  try {
+    if (existsSync(oldPath) && !existsSync(newPath)) {
+      renameSync(oldPath, newPath)
+    }
+  } catch (err) {
+    console.warn('DB migration failed, using old path:', err)
+    dbPath = oldPath
+  }
   db = new Database(dbPath)
   db.pragma('journal_mode = WAL')
   db.pragma('foreign_keys = ON')

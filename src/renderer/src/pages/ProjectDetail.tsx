@@ -44,8 +44,8 @@ export default function ProjectDetail({ projectId, onNavigate }: ProjectDetailPr
 
   function loadProject(id: string): void {
     Promise.all([
-      window.claudeInsight.projects.get(id),
-      window.claudeInsight.projects.sessions(id, 40)
+      window.tokenUsage.projects.get(id),
+      window.tokenUsage.projects.sessions(id, 40)
     ]).then(([proj, sess]) => {
       setProject(proj as ProjectRow)
       setSessions(sess as SessionRow[])
@@ -62,13 +62,13 @@ export default function ProjectDetail({ projectId, onNavigate }: ProjectDetailPr
 
   useEffect(() => {
     if (!projectId) return
-    const unsub = window.claudeInsight.onDataUpdated(() => loadProject(projectId))
+    const unsub = window.tokenUsage.onDataUpdated(() => loadProject(projectId))
     return (): void => { unsub() }
   }, [projectId])
 
   function handleDeleteProject(): void {
     if (!projectId) return
-    window.claudeInsight.projects.delete(projectId).then(() => {
+    window.tokenUsage.projects.delete(projectId).then(() => {
       onNavigate('overview')
     })
   }
@@ -224,7 +224,7 @@ function ProjectOverview({ project, sessions, setSessions }: {
   ]
 
   function handleDeleteSession(sessionId: string): void {
-    window.claudeInsight.sessions.delete(sessionId).then(() => {
+    window.tokenUsage.sessions.delete(sessionId).then(() => {
       setSessions(prev => prev.filter(s => s.session_id !== sessionId))
       setConfirmSessionId(null)
     })

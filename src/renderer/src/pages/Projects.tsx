@@ -43,7 +43,7 @@ export default function Projects({ selectedProjectId, onSelectProject }: Project
   const [tab, setTab] = useState<Tab>('overview')
 
   useEffect(() => {
-    window.claudeInsight.projects.list().then((rows) => {
+    window.tokenUsage.projects.list().then((rows) => {
       setProjects(rows as ProjectRow[])
       setLoading(false)
     })
@@ -52,7 +52,7 @@ export default function Projects({ selectedProjectId, onSelectProject }: Project
   useEffect(() => {
     if (!selectedProjectId) return
     setSessions([])
-    window.claudeInsight.projects.sessions(selectedProjectId, 40).then((s) => {
+    window.tokenUsage.projects.sessions(selectedProjectId, 40).then((s) => {
       setSessions(s as SessionRow[])
     })
     setTab('overview')

@@ -23,20 +23,20 @@ export default function Sidebar({ activePage, selectedProjectId, onNavigate }: S
   const [refreshing, setRefreshing] = useState(false)
 
   function loadProjects(): void {
-    window.claudeInsight.projects.list().then((rows) => {
+    window.tokenUsage.projects.list().then((rows) => {
       setProjects(rows as ProjectRow[])
     })
   }
 
   useEffect(() => {
     loadProjects()
-    const unsub = window.claudeInsight.onDataUpdated(loadProjects)
+    const unsub = window.tokenUsage.onDataUpdated(loadProjects)
     return (): void => { unsub() }
   }, [])
 
   function handleRefresh(): void {
     setRefreshing(true)
-    window.claudeInsight.refresh().finally(() => {
+    window.tokenUsage.refresh().finally(() => {
       setTimeout(() => setRefreshing(false), 600)
     })
   }

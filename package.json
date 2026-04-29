@@ -1,8 +1,7 @@
 {
-  "name": "claude-insight",
+  "name": "tokenusage",
   "version": "0.1.1",
   "description": "Claude Code usage analysis desktop app — optimize your AI coding habits",
-  "private": true,
   "type": "module",
   "main": "dist-electron/main/index.js",
   "scripts": {
@@ -10,7 +9,7 @@
     "build": "electron-vite build",
     "preview": "electron-vite preview",
     "start": "electron .",
-    "package": "npm run build && electron-builder",
+    "package": "pnpm run build && electron-builder",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
@@ -44,7 +43,7 @@
     "vitest": "^1.5.2"
   },
   "build": {
-    "appId": "com.claudeinsight.app",
+    "appId": "com.tokenusage.app",
     "productName": "TokenUsage",
     "directories": {
       "buildResources": "resources"

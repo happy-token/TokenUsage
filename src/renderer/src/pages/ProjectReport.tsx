@@ -38,7 +38,7 @@ export default function ProjectReport({ projectId }: ProjectReportProps): React.
   useEffect(() => {
     setLoading(true)
     setData(null)
-    window.claudeInsight.projects.report(projectId, period)
+    window.tokenUsage.projects.report(projectId, period)
       .then(r => { setData(r as SummaryData); setLoading(false) })
   }, [projectId, period])
 

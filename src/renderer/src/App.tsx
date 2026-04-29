@@ -13,7 +13,7 @@ function AppInner(): React.ReactElement {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
 
   useEffect(() => {
-    const unsub = window.claudeInsight.onDataUpdated(() => {
+    const unsub = window.tokenUsage.onDataUpdated(() => {
       setPage((p) => p)
     })
     return (): void => { unsub() }

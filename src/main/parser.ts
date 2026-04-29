@@ -1,4 +1,4 @@
-import { createReadStream } from 'fs'
+import { createReadStream, readFileSync } from 'fs'
 import { stat } from 'fs/promises'
 import { basename } from 'path'
 import { createInterface } from 'readline'
@@ -9,12 +9,21 @@ const BASH_TOOLS = new Set(['Bash', 'BashTool', 'PowerShellTool'])
 // UUID pattern — used to extract session_id from filename
 const UUID_RE = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i
 
-// Pricing per 1M tokens (USD). Cache read is ~0.1x input; cache write ~1.25x input.
-const MODEL_PRICING: Record<string, { input: number; output: number; cacheRead: number; cacheWrite: number }> = {
-  'claude-opus-4-7':   { input: 15,  output: 75,  cacheRead: 1.5,  cacheWrite: 18.75 },
-  'claude-opus-4-6':   { input: 15,  output: 75,  cacheRead: 1.5,  cacheWrite: 18.75 },
-  'claude-sonnet-4-6': { input: 3,   output: 15,  cacheRead: 0.3,  cacheWrite: 3.75  },
-  'claude-haiku-4-5':  { input: 0.8, output: 4,   cacheRead: 0.08, cacheWrite: 1.0   },
+interface ModelPricing {
+  inputCostPer1M: number
+  outputCostPer1M: number
+  cacheReadCostPer1M: number
+  cacheWriteCostPer1M: number
+}
+
+let pricingTable: Record<string, ModelPricing> = {}
+
+export function initPricing(path: string): void {
+  try {
+    pricingTable = JSON.parse(readFileSync(path, 'utf-8')) as Record<string, ModelPricing>
+  } catch (err) {
+    console.warn('Failed to load pricing from', path, err)
+  }
 }
 
 export function computeCostFromTokens(
@@ -24,15 +33,15 @@ export function computeCostFromTokens(
   cacheReadTokens: number,
   cacheWriteTokens: number
 ): number {
-  // Match by prefix to handle versioned model names
-  const pricing = MODEL_PRICING[modelName] ??
-    Object.entries(MODEL_PRICING).find(([k]) => modelName.startsWith(k.split('-').slice(0, 3).join('-')))?.[1]
+  // Match exact key first, then by 4-segment prefix to handle versioned model names like claude-opus-4-7-20251001
+  const pricing = pricingTable[modelName] ??
+    Object.entries(pricingTable).find(([k]) => modelName.startsWith(k.split('-').slice(0, 4).join('-')))?.[1]
   if (!pricing) return 0
   return (
-    (inputTokens * pricing.input +
-      outputTokens * pricing.output +
-      cacheReadTokens * pricing.cacheRead +
-      cacheWriteTokens * pricing.cacheWrite) / 1_000_000
+    (inputTokens * pricing.inputCostPer1M +
+      outputTokens * pricing.outputCostPer1M +
+      cacheReadTokens * pricing.cacheReadCostPer1M +
+      cacheWriteTokens * pricing.cacheWriteCostPer1M) / 1_000_000
   )
 }
 

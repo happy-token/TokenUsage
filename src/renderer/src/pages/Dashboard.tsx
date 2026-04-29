@@ -22,7 +22,7 @@ export default function Dashboard({ onNavigate }: DashboardProps): React.ReactEl
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    window.claudeInsight.projects.list().then((rows) => {
+    window.tokenUsage.projects.list().then((rows) => {
       setProjects(rows as ProjectRow[])
       setLoading(false)
     })

@@ -104,12 +104,12 @@ export default function Overview({ onNavigate }: OverviewProps): React.ReactElem
     setLoading(true)
     // optimize.global() writes waste_cache; aggregated() reads it — must run in sequence
     Promise.all([
-      window.claudeInsight.report.byProject(p),
-      window.claudeInsight.report.byDay(null, p),
-      window.claudeInsight.report.byModel(null, p),
-      window.claudeInsight.projects.activity(null, p),
-      window.claudeInsight.optimize.global(),
-      window.claudeInsight.report.global(p),
+      window.tokenUsage.report.byProject(p),
+      window.tokenUsage.report.byDay(null, p),
+      window.tokenUsage.report.byModel(null, p),
+      window.tokenUsage.projects.activity(null, p),
+      window.tokenUsage.optimize.global(),
+      window.tokenUsage.report.global(p),
     ]).then(([projs, days, models, activity, health, globalRep]) => {
       setProjects(projs as ProjectRow[])
       setDayRows(days as DayRow[])
@@ -119,7 +119,7 @@ export default function Overview({ onNavigate }: OverviewProps): React.ReactElem
       setGlobalReport(globalRep as GlobalReport)
       setLoading(false)
       // fetch aggregated findings after waste_cache is populated
-      return window.claudeInsight.optimize.aggregated()
+      return window.tokenUsage.optimize.aggregated()
     }).then((aggFindings) => {
       setAggregatedFindings(aggFindings as AggregatedFinding[])
     })
@@ -130,7 +130,7 @@ export default function Overview({ onNavigate }: OverviewProps): React.ReactElem
   }, [period])
 
   useEffect(() => {
-    const unsub = window.claudeInsight.onDataUpdated(() => fetchAll(period))
+    const unsub = window.tokenUsage.onDataUpdated(() => fetchAll(period))
     return (): void => { unsub() }
   }, [period])
 

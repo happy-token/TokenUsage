@@ -37,10 +37,10 @@
 
 ```bash
 # 安装依赖（同时编译原生 SQLite 插件）
-npm install
+pnpm install
 
 # 开发模式启动
-npm run dev
+pnpm run dev
 ```
 
 应用会自动扫描 `~/.claude/projects/**/*.jsonl`，无需任何配置，数据立即可见。
@@ -49,13 +49,13 @@ npm run dev
 
 | 命令 | 说明 |
 |---|---|
-| `npm run dev` | 启动 Electron + Vite 开发服务器（支持热更新） |
-| `npm run build` | 生产环境构建 |
-| `npm run package` | 构建并打包发行版（`.dmg` / `.exe` / `.AppImage`） |
-| `npm test` | 运行单元测试（Vitest） |
-| `npm run test:watch` | 测试监听模式 |
-| `npm run test:e2e` | Playwright 端到端测试 |
-| `npm run typecheck` | TypeScript 类型检查 |
+| `pnpm run dev` | 启动 Electron + Vite 开发服务器（支持热更新） |
+| `pnpm run build` | 生产环境构建 |
+| `pnpm run package` | 构建并打包发行版（`.dmg` / `.exe` / `.AppImage`） |
+| `pnpm test` | 运行单元测试（Vitest） |
+| `pnpm run test:watch` | 测试监听模式 |
+| `pnpm run test:e2e` | Playwright 端到端测试 |
+| `pnpm run typecheck` | TypeScript 类型检查 |
 
 ## 项目结构
 
@@ -71,7 +71,7 @@ src/
 │   ├── ipc.ts          # IPC 处理器注册
 │   └── store.ts        # 托盘统计内存缓存
 ├── preload/
-│   └── index.ts        # Context Bridge（暴露 window.claudeInsight）
+│   └── index.ts        # Context Bridge（暴露 window.tokenUsage）
 └── renderer/
     └── src/
         ├── App.tsx               # 根组件 + 路由
