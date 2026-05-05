@@ -172,6 +172,7 @@ function NavItem({ id, label, icon, active, onClick }: {
     <button
       key={id}
       onClick={onClick}
+      className="clickable"
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -182,10 +183,9 @@ function NavItem({ id, label, icon, active, onClick }: {
         borderLeft: `2px solid ${active ? 'var(--color-accent)' : 'transparent'}`,
         fontWeight: active ? 700 : 400,
         fontSize: 13,
-        transition: 'all 120ms ease',
+        transition: 'all var(--transition-spring)',
         textAlign: 'left',
-        width: '100%',
-        cursor: 'pointer'
+        width: '100%'
       }}
     >
       <span style={{ fontSize: 11, opacity: active ? 1 : 0.6 }}>{icon}</span>

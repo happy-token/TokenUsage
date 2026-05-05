@@ -590,24 +590,61 @@ function StatCell({ label, value, color }: { label: string; value: string; color
   )
 }
 
-function KpiCard({ label, value, sub, color }: { label: string; value: string; sub: string; color: string }): React.ReactElement {
+function KpiCard({ label, value, sub, color, data }: { label: string; value: string; sub: string; color: string; data?: number[] }): React.ReactElement {
   return (
-    <div style={{ background: 'var(--color-surface)', borderRadius: 10, padding: '12px 14px', border: '1px solid var(--color-border)' }}>
+    <div className="hover-lift" style={{ background: 'var(--color-surface)', borderRadius: 10, padding: '12px 14px', border: '1px solid var(--color-border)', display: 'flex', flexDirection: 'column' }}>
       <div style={{ height: 2, borderRadius: 1, background: color, marginBottom: 10 }} />
       <div style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--color-text-muted)', marginBottom: 4 }}>{label}</div>
-      <div style={{ fontSize: 20, fontWeight: 800, fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em', lineHeight: 1.2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{value}</div>
-      <div style={{ fontSize: 11, color: 'var(--color-text-muted)', marginTop: 3 }}>{sub}</div>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 8 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 20, fontWeight: 800, fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em', lineHeight: 1.2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{value}</div>
+          <div style={{ fontSize: 11, color: 'var(--color-text-muted)', marginTop: 3 }}>{sub}</div>
+        </div>
+        {data && data.length > 1 && (
+          <div style={{ width: 48, height: 24, marginBottom: 4 }}>
+            <Sparkline data={data} color={color} />
+          </div>
+        )}
+      </div>
     </div>
   )
 }
 
 function Panel({ title, accent, children }: { title: string; accent: string; children: React.ReactNode }): React.ReactElement {
   return (
-    <div style={{ background: 'var(--color-surface)', borderRadius: 10, padding: 'var(--space-md)', border: '1px solid var(--color-border)' }}>
+    <div className="hover-lift" style={{ background: 'var(--color-surface)', borderRadius: 10, padding: 'var(--space-md)', border: '1px solid var(--color-border)' }}>
       <div style={{ height: 2, borderRadius: 1, background: accent, marginBottom: 12 }} />
       <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-text-muted)', marginBottom: 14 }}>{title}</div>
       {children}
     </div>
+  )
+}
+
+function Sparkline({ data, color }: { data: number[]; color: string }): React.ReactElement {
+  const max = Math.max(...data, 0.0001)
+  const min = Math.min(...data)
+  const range = max - min || 1
+  const width = 100
+  const height = 40
+
+  const points = data.map((val, i) => {
+    const x = (i / (data.length - 1)) * width
+    const y = height - ((val - min) / range) * height
+    return `${x},${y}`
+  }).join(' ')
+
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} width="100%" height="100%" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
+      <polyline
+        fill="none"
+        stroke={color}
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        points={points}
+        style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+      />
+    </svg>
   )
 }
 
