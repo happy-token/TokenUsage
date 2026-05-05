@@ -5,7 +5,7 @@ import type { Theme } from '../contexts/ThemeContext'
 import type { Lang } from '../contexts/I18nContext'
 import AppLogo from '../components/AppLogo'
 
-const GITHUB_URL = 'https://github.com/Thinkre/TokenUsage'
+const GITHUB_URL = 'https://github.com/happy-token/TokenUsage'
 
 export default function Settings(): React.ReactElement {
   const { theme, setTheme } = useTheme()
