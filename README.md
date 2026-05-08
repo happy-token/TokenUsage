@@ -219,6 +219,7 @@ Download the latest release from the [Releases](https://github.com/happy-token/T
 | `pnpm run test:watch` | Watch mode |
 | `pnpm run test:e2e` | Playwright end-to-end tests |
 | `pnpm run typecheck` | TypeScript type check without emitting |
+| `pnpm run sync-models` | Sync model pricing from [models.dev](https://github.com/anomalyco/models.dev) |
 
 ## 📁 Project Structure
 
@@ -251,15 +252,24 @@ TokenUsage/
 
 ## 💰 Model Pricing
 
-Cost is computed locally from token counts using these rates (USD per 1M tokens):
+Cost is computed locally from token counts using the official Anthropic pricing rates (USD per 1M tokens). Pricing data is sourced from [models.dev](https://github.com/anomalyco/models.dev) (community-maintained, open-source model registry).
 
 | Model | Input | Output | Cache Read | Cache Write |
 |---|---|---|---|---|
-| claude-opus-4-7 / 4-6 | $15 | $75 | $1.5 | $18.75 |
-| claude-sonnet-4-6 | $3 | $15 | $0.3 | $3.75 |
-| claude-haiku-4-5 | $0.8 | $4 | $0.08 | $1.00 |
+| claude-opus-4-7 | $5.00 | $25.00 | $0.50 | $6.25 |
+| claude-opus-4-6 | $5.00 | $25.00 | $0.50 | $6.25 |
+| claude-opus-4-5 | $5.00 | $25.00 | $0.50 | $6.25 |
+| claude-opus-4-1 / 4+ | $15.00 | $75.00 | $1.50 | $18.75 |
+| claude-sonnet-4-6 | $3.00 | $15.00 | $0.30 | $3.75 |
+| claude-sonnet-4-5 / 4+ | $3.00 | $15.00 | $0.30 | $3.75 |
+| claude-haiku-4-5 | $1.00 | $5.00 | $0.10 | $1.25 |
+| claude-3.5-sonnet | $3.00 | $15.00 | $0.30 | $3.75 |
+| claude-3.5-haiku | $0.80 | $4.00 | $0.08 | $1.00 |
+| claude-3-opus | $15.00 | $75.00 | $1.50 | $18.75 |
+| claude-3-sonnet | $3.00 | $15.00 | $0.30 | $3.75 |
+| claude-3-haiku | $0.25 | $1.25 | $0.025 | $0.3125 |
 
-If a session already includes a `costUSD` field in the JSONL, that value is used directly. Model pricing is configured in `resources/models.json`.
+> Pricing is updated by the community at [github.com/anomalyco/models.dev](https://github.com/anomalyco/models.dev). To add or update a model, edit `resources/models.json` — contributions welcome. If a session already includes a `costUSD` field in the JSONL, that value is used directly.
 
 ## 🔒 Data & Privacy
 

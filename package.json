@@ -14,6 +14,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit",
+    "sync-models": "npx tsx scripts/sync-models.ts",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {

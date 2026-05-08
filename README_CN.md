@@ -219,6 +219,7 @@ pnpm run dev
 | `pnpm run test:watch` | 测试监听模式 |
 | `pnpm run test:e2e` | Playwright 端到端测试 |
 | `pnpm run typecheck` | TypeScript 类型检查 |
+| `pnpm run sync-models` | 从 [models.dev](https://github.com/anomalyco/models.dev) 同步模型定价 |
 
 ## 📁 项目结构
 
@@ -251,15 +252,24 @@ TokenUsage/
 
 ## 💰 模型定价
 
-费用根据 Token 数量在本地计算，使用以下标准（美元 / 百万 Token）：
+费用根据 Token 数量在本地计算，使用 Anthropic 官方定价（美元 / 百万 Token）。定价数据来自 [models.dev](https://github.com/anomalyco/models.dev)（社区维护的开源模型注册表）。
 
 | 模型 | 输入 | 输出 | 缓存读取 | 缓存写入 |
 |---|---|---|---|---|
-| claude-opus-4-7 / 4-6 | $15 | $75 | $1.5 | $18.75 |
-| claude-sonnet-4-6 | $3 | $15 | $0.3 | $3.75 |
-| claude-haiku-4-5 | $0.8 | $4 | $0.08 | $1.00 |
+| claude-opus-4-7 | $5.00 | $25.00 | $0.50 | $6.25 |
+| claude-opus-4-6 | $5.00 | $25.00 | $0.50 | $6.25 |
+| claude-opus-4-5 | $5.00 | $25.00 | $0.50 | $6.25 |
+| claude-opus-4-1 / 4+ | $15.00 | $75.00 | $1.50 | $18.75 |
+| claude-sonnet-4-6 | $3.00 | $15.00 | $0.30 | $3.75 |
+| claude-sonnet-4-5 / 4+ | $3.00 | $15.00 | $0.30 | $3.75 |
+| claude-haiku-4-5 | $1.00 | $5.00 | $0.10 | $1.25 |
+| claude-3.5-sonnet | $3.00 | $15.00 | $0.30 | $3.75 |
+| claude-3.5-haiku | $0.80 | $4.00 | $0.08 | $1.00 |
+| claude-3-opus | $15.00 | $75.00 | $1.50 | $18.75 |
+| claude-3-sonnet | $3.00 | $15.00 | $0.30 | $3.75 |
+| claude-3-haiku | $0.25 | $1.25 | $0.025 | $0.3125 |
 
-若 JSONL 中已包含 `costUSD` 字段，则直接使用该值。模型定价配置在 `resources/models.json` 中。
+> 社区在 [github.com/anomalyco/models.dev](https://github.com/anomalyco/models.dev) 维护更新定价。添加或更新模型只需编辑 `resources/models.json` — 欢迎贡献。若 JSONL 中已包含 `costUSD` 字段，则直接使用该值。
 
 ## 🔒 数据与隐私
 

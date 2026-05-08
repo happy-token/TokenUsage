@@ -28,6 +28,18 @@ export function initPricing(path: string): boolean {
   }
 }
 
+function lookupPricing(modelName: string): ModelPricing | undefined {
+  const exact = pricingTable[modelName]
+  if (exact) return exact
+  return Object.entries(pricingTable).find(([k]) =>
+    modelName.startsWith(k.split('-').slice(0, 4).join('-'))
+  )?.[1]
+}
+
+export function getInputCostPer1M(modelName: string): number {
+  return lookupPricing(modelName)?.inputCostPer1M ?? 0
+}
+
 export function computeCostFromTokens(
   modelName: string,
   inputTokens: number,
@@ -36,8 +48,7 @@ export function computeCostFromTokens(
   cacheWriteTokens: number
 ): number {
   // Match exact key first, then by 4-segment prefix to handle versioned model names like claude-opus-4-7-20251001
-  const pricing = pricingTable[modelName] ??
-    Object.entries(pricingTable).find(([k]) => modelName.startsWith(k.split('-').slice(0, 4).join('-')))?.[1]
+  const pricing = lookupPricing(modelName)
   if (!pricing) return 0
   return (
     (inputTokens * pricing.inputCostPer1M +

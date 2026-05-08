@@ -1,5 +1,5 @@
 import { getDb } from './db'
-import { projectIdFromName } from './parser'
+import { projectIdFromName, getInputCostPer1M } from './parser'
 import type { ParsedSession } from './types'
 
 export function upsertSession(session: ParsedSession): void {
@@ -196,11 +196,6 @@ export function getProjectReport(projectId: string, periodDays: number) {
   const cr = tokenRow.cache_read ?? 0
   const cw = tokenRow.cache_write ?? 0
   const hitRate = inp + cr > 0 ? cr / (inp + cr) : 0
-  // Approximate pricing: cache_read saves ~90% of input cost; cache_write costs extra ~25%
-  const inputCostPerMtok = 3.0
-  const grossSavings = (cr / 1e6) * inputCostPerMtok * 0.9
-  const writeCost = (cw / 1e6) * inputCostPerMtok * 0.25
-  const netRoi = grossSavings - writeCost
 
   // Activity breakdown
   const activityRows = db.prepare(`
@@ -235,6 +230,24 @@ export function getProjectReport(projectId: string, periodDays: number) {
   `).all(projectId, cutoff, cutoff) as Array<{
     model: string; session_count: number; total_cost: number; input_tokens: number; output_tokens: number
   }>
+
+  // Model-weighted input price for accurate cache ROI (vs hardcoded sonnet $3.0)
+  let inputCostPerMtok = 3.0 // fallback
+  if (modelRows.length > 0) {
+    let totalInput = 0, weightedSum = 0
+    for (const m of modelRows) {
+      const price = getInputCostPer1M(m.model)
+      if (price > 0) {
+        weightedSum += (m.input_tokens ?? 0) * price
+        totalInput += (m.input_tokens ?? 0)
+      }
+    }
+    if (totalInput > 0) inputCostPerMtok = weightedSum / totalInput
+  }
+  // cache_read saves ~90% of input cost; cache_write costs extra ~25%
+  const grossSavings = (cr / 1e6) * inputCostPerMtok * 0.9
+  const writeCost = (cw / 1e6) * inputCostPerMtok * 0.25
+  const netRoi = grossSavings - writeCost
 
   // Tool stats from turns.tool_names (JSON array stored as text)
   const turnRows = db.prepare(`
@@ -358,7 +371,25 @@ export function getGlobalReport(periodDays: number) {
   const cr = tokenRow.cache_read ?? 0
   const cw = tokenRow.cache_write ?? 0
   const hitRate = inp + cr > 0 ? cr / (inp + cr) : 0
-  const inputCostPerMtok = 3.0
+
+  // Model-weighted input price for accurate cache ROI
+  const modelInputRows = db.prepare(`
+    SELECT model, SUM(input_tokens) as input_tokens
+    FROM sessions WHERE model IS NOT NULL AND (? = 0 OR start_time >= ?)
+    GROUP BY model
+  `).all(cutoff, cutoff) as Array<{ model: string; input_tokens: number }>
+  let inputCostPerMtok = 3.0 // fallback
+  if (modelInputRows.length > 0) {
+    let totalInput = 0, weightedSum = 0
+    for (const m of modelInputRows) {
+      const price = getInputCostPer1M(m.model)
+      if (price > 0) {
+        weightedSum += (m.input_tokens ?? 0) * price
+        totalInput += (m.input_tokens ?? 0)
+      }
+    }
+    if (totalInput > 0) inputCostPerMtok = weightedSum / totalInput
+  }
   const grossSavings = (cr / 1e6) * inputCostPerMtok * 0.9
   const writeCost = (cw / 1e6) * inputCostPerMtok * 0.25
   const netRoi = grossSavings - writeCost
