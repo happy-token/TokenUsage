@@ -252,24 +252,26 @@ TokenUsage/
 
 ## 💰 模型定价
 
-费用根据 Token 数量在本地计算，使用 Anthropic 官方定价（美元 / 百万 Token）。定价数据来自 [models.dev](https://github.com/anomalyco/models.dev)（社区维护的开源模型注册表）。
+费用根据 Token 数量在本地计算，使用官方定价（美元 / 百万 Token）。定价数据来自 [models.dev](https://github.com/anomalyco/models.dev) — 社区维护的开源模型注册表，覆盖 100+ 供应商。
+
+**已支持的供应商：** Anthropic、OpenAI、Google Gemini、DeepSeek、xAI (Grok)、Mistral、Groq、Cerebras 等。运行 `pnpm run sync-models` 拉取最新定价。
+
+### 热门模型
 
 | 模型 | 输入 | 输出 | 缓存读取 | 缓存写入 |
 |---|---|---|---|---|
 | claude-opus-4-7 | $5.00 | $25.00 | $0.50 | $6.25 |
-| claude-opus-4-6 | $5.00 | $25.00 | $0.50 | $6.25 |
-| claude-opus-4-5 | $5.00 | $25.00 | $0.50 | $6.25 |
-| claude-opus-4-1 / 4+ | $15.00 | $75.00 | $1.50 | $18.75 |
 | claude-sonnet-4-6 | $3.00 | $15.00 | $0.30 | $3.75 |
-| claude-sonnet-4-5 / 4+ | $3.00 | $15.00 | $0.30 | $3.75 |
 | claude-haiku-4-5 | $1.00 | $5.00 | $0.10 | $1.25 |
-| claude-3.5-sonnet | $3.00 | $15.00 | $0.30 | $3.75 |
-| claude-3.5-haiku | $0.80 | $4.00 | $0.08 | $1.00 |
-| claude-3-opus | $15.00 | $75.00 | $1.50 | $18.75 |
-| claude-3-sonnet | $3.00 | $15.00 | $0.30 | $3.75 |
-| claude-3-haiku | $0.25 | $1.25 | $0.025 | $0.3125 |
+| gpt-4.1 | $2.00 | $8.00 | $0.50 | $2.50 |
+| gpt-4o | $2.50 | $10.00 | $1.25 | $2.50 |
+| gpt-4.1-mini | $0.40 | $1.60 | $0.10 | $0.50 |
+| gemini-2.5-pro | $1.25 | $10.00 | $0.25 | — |
+| gemini-2.5-flash | $0.15 | $0.60 | $0.06 | — |
+| deepseek-chat (V3) | $0.27 | $1.10 | $0.07 | $0.14 |
+| deepseek-reasoner (R1) | $0.55 | $2.19 | $0.14 | $0.55 |
 
-> 社区在 [github.com/anomalyco/models.dev](https://github.com/anomalyco/models.dev) 维护更新定价。添加或更新模型只需编辑 `resources/models.json` — 欢迎贡献。若 JSONL 中已包含 `costUSD` 字段，则直接使用该值。
+> 完整定价（171 个模型）在 `resources/models.json`。更新定价：`pnpm run sync-models`。指定供应商：`pnpm run sync-models openai google`。同步全部 100+ 供应商：`pnpm run sync-models --all`。若 JSONL 中已包含 `costUSD` 字段，则直接使用该值。
 
 ## 🔒 数据与隐私
 

@@ -2,12 +2,13 @@
 /**
  * Sync models.json from anomalyco/models.dev
  *
- * Fetches all Anthropic model TOML files from the models.dev GitHub repo,
- * extracts pricing, and writes an updated resources/models.json.
+ * Fetches model TOML files from the models.dev GitHub repo, extracts pricing,
+ * and writes an updated resources/models.json.
  *
  * Usage:
- *   pnpm run sync-models
- *   npx tsx scripts/sync-models.ts
+ *   pnpm run sync-models                          # default providers
+ *   pnpm run sync-models anthropic openai google  # specific providers
+ *   npx tsx scripts/sync-models.ts --all          # all 100+ providers
  */
 
 import { writeFileSync } from 'fs'
@@ -18,8 +19,20 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const MODELS_DEV_API = 'https://api.github.com/repos/anomalyco/models.dev'
-const ANTHROPIC_MODELS_DIR = 'providers/anthropic/models'
 const OUT_PATH = join(__dirname, '..', 'resources', 'models.json')
+
+// Default providers commonly used with Claude Code
+const DEFAULT_PROVIDERS = [
+  'anthropic',
+  'openai',
+  'google',
+  'deepseek',
+  'xai',
+  'mistral',
+  'groq',
+  'cohere',
+  'cerebras',
+]
 
 interface ModelPricing {
   inputCostPer1M: number
@@ -36,52 +49,96 @@ interface TomlCost {
 }
 
 async function main(): Promise<void> {
-  // 1. List all model TOML files
-  const listUrl = `${MODELS_DEV_API}/contents/${ANTHROPIC_MODELS_DIR}`
+  const args = process.argv.slice(2).filter(a => a !== '--all')
+
+  let providers: string[]
+
+  if (process.argv.includes('--all')) {
+    // Fetch the full provider list
+    const res = await fetch(`${MODELS_DEV_API}/contents/providers`, {
+      headers: { Accept: 'application/vnd.github.v3+json', 'User-Agent': 'tokenusage-sync' }
+    })
+    if (!res.ok) {
+      console.error(`Failed to list providers: ${res.status}`)
+      process.exit(1)
+    }
+    const dirs = (await res.json()) as Array<{ name: string; type: string }>
+    providers = dirs.filter(d => d.type === 'dir').map(d => d.name)
+    console.log(`Syncing ALL ${providers.length} providers...`)
+  } else if (args.length > 0) {
+    providers = args
+  } else {
+    providers = DEFAULT_PROVIDERS
+  }
+
+  console.log(`Providers: ${providers.join(', ')}\n`)
+
+  const pricing: Record<string, ModelPricing> = {}
+  let totalModels = 0
+  const failures: string[] = []
+
+  for (const provider of providers) {
+    try {
+      await syncProvider(provider, pricing)
+    } catch (err) {
+      console.warn(`  FAIL ${provider}: ${err instanceof Error ? err.message : err}`)
+      failures.push(provider)
+    }
+  }
+
+  // Write output
+  writeFileSync(OUT_PATH, JSON.stringify(pricing, null, 2) + '\n')
+  const summary = `\nWrote ${Object.keys(pricing).length} models from ${providers.length} providers to ${OUT_PATH}`
+  console.log(summary)
+  if (failures.length > 0) {
+    console.warn(`Skipped providers: ${failures.join(', ')}`)
+  }
+}
+
+async function syncProvider(provider: string, pricing: Record<string, ModelPricing>): Promise<number> {
+  const dirPath = `providers/${provider}/models`
+  const listUrl = `${MODELS_DEV_API}/contents/${dirPath}`
   const listRes = await fetch(listUrl, {
     headers: { Accept: 'application/vnd.github.v3+json', 'User-Agent': 'tokenusage-sync' }
   })
   if (!listRes.ok) {
-    console.error(`Failed to list models: ${listRes.status} ${listRes.statusText}`)
-    process.exit(1)
+    console.warn(`  ${provider}: HTTP ${listRes.status}`)
+    return 0
   }
   const files = (await listRes.json()) as Array<{ name: string; download_url: string }>
   const tomlFiles = files.filter(f => f.name.endsWith('.toml'))
 
-  // 2. Fetch and parse each TOML
-  const pricing: Record<string, ModelPricing> = {}
-
+  let count = 0
   for (const file of tomlFiles) {
     const modelId = file.name.replace(/\.toml$/, '')
     try {
       const tomlRes = await fetch(file.download_url)
       if (!tomlRes.ok) {
-        console.warn(`  SKIP ${modelId}: HTTP ${tomlRes.status}`)
+        console.warn(`    SKIP ${modelId}: HTTP ${tomlRes.status}`)
         continue
       }
       const toml = await tomlRes.text()
       const cost = parseTomlCost(toml)
 
-      if (!cost.input) {
-        console.warn(`  SKIP ${modelId}: no cost section`)
-        continue
-      }
+      if (!cost.input) continue // image/embedding models
 
-      pricing[modelId] = {
+      const key = pricing[modelId] && !modelId.startsWith(`${provider}/`)
+        ? `${provider}/${modelId}`
+        : modelId
+
+      pricing[key] = {
         inputCostPer1M: cost.input,
         outputCostPer1M: cost.output ?? cost.input * 5,
         cacheReadCostPer1M: cost.cache_read ?? cost.input * 0.1,
         cacheWriteCostPer1M: cost.cache_write ?? cost.input * 1.25
       }
-      console.log(`  OK   ${modelId}: $${cost.input}/M in, $${cost.output}/M out`)
+      count++
     } catch (err) {
-      console.warn(`  FAIL ${modelId}: ${err instanceof Error ? err.message : err}`)
+      console.warn(`    FAIL ${modelId}: ${err instanceof Error ? err.message : err}`)
     }
   }
-
-  // 3. Write output
-  writeFileSync(OUT_PATH, JSON.stringify(pricing, null, 2) + '\n')
-  console.log(`\nWrote ${Object.keys(pricing).length} models to ${OUT_PATH}`)
+  console.log(`  ${provider}: ${count} models`)
+  return count
 }
 
 /** Minimal TOML cost parser — reads [cost] section only */
@@ -92,7 +149,7 @@ function parseTomlCost(toml: string): TomlCost {
   for (const line of toml.split('\n')) {
     const trimmed = line.trim()
     if (trimmed === '[cost]') { inCost = true; continue }
-    if (trimmed.startsWith('[') && inCost) break // next section
+    if (trimmed.startsWith('[') && inCost) break
 
     if (inCost) {
       const m = trimmed.match(/^(\w+)\s*=\s*([\d.]+)/)

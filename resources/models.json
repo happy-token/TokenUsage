@@ -136,5 +136,893 @@
     "outputCostPer1M": 15,
     "cacheReadCostPer1M": 0.3,
     "cacheWriteCostPer1M": 3.75
+  },
+  "gpt-3.5-turbo": {
+    "inputCostPer1M": 0.5,
+    "outputCostPer1M": 1.5,
+    "cacheReadCostPer1M": 1.25,
+    "cacheWriteCostPer1M": 0.625
+  },
+  "gpt-4-turbo": {
+    "inputCostPer1M": 10,
+    "outputCostPer1M": 30,
+    "cacheReadCostPer1M": 1,
+    "cacheWriteCostPer1M": 12.5
+  },
+  "gpt-4.1-mini": {
+    "inputCostPer1M": 0.4,
+    "outputCostPer1M": 1.6,
+    "cacheReadCostPer1M": 0.1,
+    "cacheWriteCostPer1M": 0.5
+  },
+  "gpt-4.1-nano": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.4,
+    "cacheReadCostPer1M": 0.03,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "gpt-4.1": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 8,
+    "cacheReadCostPer1M": 0.5,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "gpt-4": {
+    "inputCostPer1M": 30,
+    "outputCostPer1M": 60,
+    "cacheReadCostPer1M": 3,
+    "cacheWriteCostPer1M": 37.5
+  },
+  "gpt-4o-2024-05-13": {
+    "inputCostPer1M": 5,
+    "outputCostPer1M": 15,
+    "cacheReadCostPer1M": 0.5,
+    "cacheWriteCostPer1M": 6.25
+  },
+  "gpt-4o-2024-08-06": {
+    "inputCostPer1M": 2.5,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 1.25,
+    "cacheWriteCostPer1M": 3.125
+  },
+  "gpt-4o-2024-11-20": {
+    "inputCostPer1M": 2.5,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 1.25,
+    "cacheWriteCostPer1M": 3.125
+  },
+  "gpt-4o-mini": {
+    "inputCostPer1M": 0.15,
+    "outputCostPer1M": 0.6,
+    "cacheReadCostPer1M": 0.08,
+    "cacheWriteCostPer1M": 0.1875
+  },
+  "gpt-4o": {
+    "inputCostPer1M": 2.5,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 1.25,
+    "cacheWriteCostPer1M": 3.125
+  },
+  "gpt-5-chat-latest": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.125,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gpt-5-codex": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.125,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gpt-5-mini": {
+    "inputCostPer1M": 0.25,
+    "outputCostPer1M": 2,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.3125
+  },
+  "gpt-5-nano": {
+    "inputCostPer1M": 0.05,
+    "outputCostPer1M": 0.4,
+    "cacheReadCostPer1M": 0.005,
+    "cacheWriteCostPer1M": 0.0625
+  },
+  "gpt-5-pro": {
+    "inputCostPer1M": 15,
+    "outputCostPer1M": 120,
+    "cacheReadCostPer1M": 1.5,
+    "cacheWriteCostPer1M": 18.75
+  },
+  "gpt-5.1-chat-latest": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.125,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gpt-5.1-codex-max": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.125,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gpt-5.1-codex-mini": {
+    "inputCostPer1M": 0.25,
+    "outputCostPer1M": 2,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.3125
+  },
+  "gpt-5.1-codex": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.125,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gpt-5.1": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.13,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gpt-5.2-chat-latest": {
+    "inputCostPer1M": 1.75,
+    "outputCostPer1M": 14,
+    "cacheReadCostPer1M": 0.175,
+    "cacheWriteCostPer1M": 2.1875
+  },
+  "gpt-5.2-codex": {
+    "inputCostPer1M": 1.75,
+    "outputCostPer1M": 14,
+    "cacheReadCostPer1M": 0.175,
+    "cacheWriteCostPer1M": 2.1875
+  },
+  "gpt-5.2-pro": {
+    "inputCostPer1M": 21,
+    "outputCostPer1M": 168,
+    "cacheReadCostPer1M": 2.1,
+    "cacheWriteCostPer1M": 26.25
+  },
+  "gpt-5.2": {
+    "inputCostPer1M": 1.75,
+    "outputCostPer1M": 14,
+    "cacheReadCostPer1M": 0.175,
+    "cacheWriteCostPer1M": 2.1875
+  },
+  "gpt-5.3-chat-latest": {
+    "inputCostPer1M": 1.75,
+    "outputCostPer1M": 14,
+    "cacheReadCostPer1M": 0.175,
+    "cacheWriteCostPer1M": 2.1875
+  },
+  "gpt-5.3-codex-spark": {
+    "inputCostPer1M": 1.75,
+    "outputCostPer1M": 14,
+    "cacheReadCostPer1M": 0.175,
+    "cacheWriteCostPer1M": 2.1875
+  },
+  "gpt-5.3-codex": {
+    "inputCostPer1M": 1.75,
+    "outputCostPer1M": 14,
+    "cacheReadCostPer1M": 0.175,
+    "cacheWriteCostPer1M": 2.1875
+  },
+  "gpt-5.4-mini": {
+    "inputCostPer1M": 0.75,
+    "outputCostPer1M": 4.5,
+    "cacheReadCostPer1M": 0.075,
+    "cacheWriteCostPer1M": 0.9375
+  },
+  "gpt-5.4-nano": {
+    "inputCostPer1M": 0.2,
+    "outputCostPer1M": 1.25,
+    "cacheReadCostPer1M": 0.02,
+    "cacheWriteCostPer1M": 0.25
+  },
+  "gpt-5.4-pro": {
+    "inputCostPer1M": 30,
+    "outputCostPer1M": 180,
+    "cacheReadCostPer1M": 3,
+    "cacheWriteCostPer1M": 37.5
+  },
+  "gpt-5.4": {
+    "inputCostPer1M": 2.5,
+    "outputCostPer1M": 15,
+    "cacheReadCostPer1M": 0.25,
+    "cacheWriteCostPer1M": 3.125
+  },
+  "gpt-5.5-pro": {
+    "inputCostPer1M": 30,
+    "outputCostPer1M": 180,
+    "cacheReadCostPer1M": 3,
+    "cacheWriteCostPer1M": 37.5
+  },
+  "gpt-5.5": {
+    "inputCostPer1M": 5,
+    "outputCostPer1M": 30,
+    "cacheReadCostPer1M": 0.5,
+    "cacheWriteCostPer1M": 6.25
+  },
+  "gpt-5": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.125,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "o1-mini": {
+    "inputCostPer1M": 1.1,
+    "outputCostPer1M": 4.4,
+    "cacheReadCostPer1M": 0.55,
+    "cacheWriteCostPer1M": 1.375
+  },
+  "o1-preview": {
+    "inputCostPer1M": 15,
+    "outputCostPer1M": 60,
+    "cacheReadCostPer1M": 7.5,
+    "cacheWriteCostPer1M": 18.75
+  },
+  "o1-pro": {
+    "inputCostPer1M": 150,
+    "outputCostPer1M": 600,
+    "cacheReadCostPer1M": 15,
+    "cacheWriteCostPer1M": 187.5
+  },
+  "o1": {
+    "inputCostPer1M": 15,
+    "outputCostPer1M": 60,
+    "cacheReadCostPer1M": 7.5,
+    "cacheWriteCostPer1M": 18.75
+  },
+  "o3-deep-research": {
+    "inputCostPer1M": 10,
+    "outputCostPer1M": 40,
+    "cacheReadCostPer1M": 2.5,
+    "cacheWriteCostPer1M": 12.5
+  },
+  "o3-mini": {
+    "inputCostPer1M": 1.1,
+    "outputCostPer1M": 4.4,
+    "cacheReadCostPer1M": 0.55,
+    "cacheWriteCostPer1M": 1.375
+  },
+  "o3-pro": {
+    "inputCostPer1M": 20,
+    "outputCostPer1M": 80,
+    "cacheReadCostPer1M": 2,
+    "cacheWriteCostPer1M": 25
+  },
+  "o3": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 8,
+    "cacheReadCostPer1M": 0.5,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "o4-mini-deep-research": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 8,
+    "cacheReadCostPer1M": 0.5,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "o4-mini": {
+    "inputCostPer1M": 1.1,
+    "outputCostPer1M": 4.4,
+    "cacheReadCostPer1M": 0.28,
+    "cacheWriteCostPer1M": 1.375
+  },
+  "text-embedding-3-large": {
+    "inputCostPer1M": 0.13,
+    "outputCostPer1M": 0,
+    "cacheReadCostPer1M": 0.013000000000000001,
+    "cacheWriteCostPer1M": 0.1625
+  },
+  "text-embedding-3-small": {
+    "inputCostPer1M": 0.02,
+    "outputCostPer1M": 0,
+    "cacheReadCostPer1M": 0.002,
+    "cacheWriteCostPer1M": 0.025
+  },
+  "text-embedding-ada-002": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0,
+    "cacheReadCostPer1M": 0.010000000000000002,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "gemini-1.5-flash-8b": {
+    "inputCostPer1M": 0.0375,
+    "outputCostPer1M": 0.15,
+    "cacheReadCostPer1M": 0.01,
+    "cacheWriteCostPer1M": 0.046875
+  },
+  "gemini-1.5-flash": {
+    "inputCostPer1M": 0.075,
+    "outputCostPer1M": 0.3,
+    "cacheReadCostPer1M": 0.01875,
+    "cacheWriteCostPer1M": 0.09375
+  },
+  "gemini-1.5-pro": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 5,
+    "cacheReadCostPer1M": 0.3125,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gemini-2.0-flash-lite": {
+    "inputCostPer1M": 0.075,
+    "outputCostPer1M": 0.3,
+    "cacheReadCostPer1M": 0.0075,
+    "cacheWriteCostPer1M": 0.09375
+  },
+  "gemini-2.0-flash": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.4,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "gemini-2.5-flash-image-preview": {
+    "inputCostPer1M": 0.3,
+    "outputCostPer1M": 30,
+    "cacheReadCostPer1M": 0.075,
+    "cacheWriteCostPer1M": 0.375
+  },
+  "gemini-2.5-flash-image": {
+    "inputCostPer1M": 0.3,
+    "outputCostPer1M": 30,
+    "cacheReadCostPer1M": 0.075,
+    "cacheWriteCostPer1M": 0.375
+  },
+  "gemini-2.5-flash-lite-preview-06-17": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.4,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "gemini-2.5-flash-lite-preview-09-2025": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.4,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "gemini-2.5-flash-lite": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.4,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "gemini-2.5-flash-preview-04-17": {
+    "inputCostPer1M": 0.15,
+    "outputCostPer1M": 0.6,
+    "cacheReadCostPer1M": 0.0375,
+    "cacheWriteCostPer1M": 0.1875
+  },
+  "gemini-2.5-flash-preview-05-20": {
+    "inputCostPer1M": 0.15,
+    "outputCostPer1M": 0.6,
+    "cacheReadCostPer1M": 0.0375,
+    "cacheWriteCostPer1M": 0.1875
+  },
+  "gemini-2.5-flash-preview-09-2025": {
+    "inputCostPer1M": 0.3,
+    "outputCostPer1M": 2.5,
+    "cacheReadCostPer1M": 0.075,
+    "cacheWriteCostPer1M": 0.375
+  },
+  "gemini-2.5-flash-preview-tts": {
+    "inputCostPer1M": 0.5,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.625
+  },
+  "gemini-2.5-flash": {
+    "inputCostPer1M": 0.3,
+    "outputCostPer1M": 2.5,
+    "cacheReadCostPer1M": 0.03,
+    "cacheWriteCostPer1M": 0.375
+  },
+  "gemini-2.5-pro-preview-05-06": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.31,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gemini-2.5-pro-preview-06-05": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.31,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gemini-2.5-pro-preview-tts": {
+    "inputCostPer1M": 1,
+    "outputCostPer1M": 20,
+    "cacheReadCostPer1M": 0.1,
+    "cacheWriteCostPer1M": 1.25
+  },
+  "gemini-2.5-pro": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 0.125,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "gemini-3-flash-preview": {
+    "inputCostPer1M": 0.5,
+    "outputCostPer1M": 3,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.625
+  },
+  "gemini-3-pro-preview": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 12,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "gemini-3.1-flash-image-preview": {
+    "inputCostPer1M": 0.25,
+    "outputCostPer1M": 60,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.3125
+  },
+  "gemini-3.1-flash-lite-preview": {
+    "inputCostPer1M": 0.25,
+    "outputCostPer1M": 1.5,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 1
+  },
+  "gemini-3.1-flash-lite": {
+    "inputCostPer1M": 0.25,
+    "outputCostPer1M": 1.5,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 1
+  },
+  "gemini-3.1-pro-preview-customtools": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 12,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "gemini-3.1-pro-preview": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 12,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "gemini-embedding-001": {
+    "inputCostPer1M": 0.15,
+    "outputCostPer1M": 0,
+    "cacheReadCostPer1M": 0.015,
+    "cacheWriteCostPer1M": 0.1875
+  },
+  "gemini-flash-latest": {
+    "inputCostPer1M": 0.3,
+    "outputCostPer1M": 2.5,
+    "cacheReadCostPer1M": 0.075,
+    "cacheWriteCostPer1M": 0.375
+  },
+  "gemini-flash-lite-latest": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.4,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "gemini-live-2.5-flash-preview-native-audio": {
+    "inputCostPer1M": 0.5,
+    "outputCostPer1M": 2,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.625
+  },
+  "gemini-live-2.5-flash": {
+    "inputCostPer1M": 0.5,
+    "outputCostPer1M": 2,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.625
+  },
+  "deepseek-chat": {
+    "inputCostPer1M": 0.14,
+    "outputCostPer1M": 0.28,
+    "cacheReadCostPer1M": 0.028,
+    "cacheWriteCostPer1M": 0.17500000000000002
+  },
+  "deepseek-reasoner": {
+    "inputCostPer1M": 0.14,
+    "outputCostPer1M": 0.28,
+    "cacheReadCostPer1M": 0.028,
+    "cacheWriteCostPer1M": 0.17500000000000002
+  },
+  "deepseek-v4-flash": {
+    "inputCostPer1M": 0.14,
+    "outputCostPer1M": 0.28,
+    "cacheReadCostPer1M": 0.028,
+    "cacheWriteCostPer1M": 0.17500000000000002
+  },
+  "deepseek-v4-pro": {
+    "inputCostPer1M": 1.74,
+    "outputCostPer1M": 3.48,
+    "cacheReadCostPer1M": 0.145,
+    "cacheWriteCostPer1M": 2.175
+  },
+  "grok-2-1212": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "grok-2-latest": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "grok-2-vision-1212": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "grok-2-vision-latest": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "grok-2-vision": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "grok-2": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 10,
+    "cacheReadCostPer1M": 2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "grok-3-fast-latest": {
+    "inputCostPer1M": 5,
+    "outputCostPer1M": 25,
+    "cacheReadCostPer1M": 1.25,
+    "cacheWriteCostPer1M": 6.25
+  },
+  "grok-3-fast": {
+    "inputCostPer1M": 5,
+    "outputCostPer1M": 25,
+    "cacheReadCostPer1M": 1.25,
+    "cacheWriteCostPer1M": 6.25
+  },
+  "grok-3-latest": {
+    "inputCostPer1M": 3,
+    "outputCostPer1M": 15,
+    "cacheReadCostPer1M": 0.75,
+    "cacheWriteCostPer1M": 3.75
+  },
+  "grok-3-mini-fast-latest": {
+    "inputCostPer1M": 0.6,
+    "outputCostPer1M": 4,
+    "cacheReadCostPer1M": 0.15,
+    "cacheWriteCostPer1M": 0.75
+  },
+  "grok-3-mini-fast": {
+    "inputCostPer1M": 0.6,
+    "outputCostPer1M": 4,
+    "cacheReadCostPer1M": 0.15,
+    "cacheWriteCostPer1M": 0.75
+  },
+  "grok-3-mini-latest": {
+    "inputCostPer1M": 0.3,
+    "outputCostPer1M": 0.5,
+    "cacheReadCostPer1M": 0.075,
+    "cacheWriteCostPer1M": 0.375
+  },
+  "grok-3-mini": {
+    "inputCostPer1M": 0.3,
+    "outputCostPer1M": 0.5,
+    "cacheReadCostPer1M": 0.075,
+    "cacheWriteCostPer1M": 0.375
+  },
+  "grok-3": {
+    "inputCostPer1M": 3,
+    "outputCostPer1M": 15,
+    "cacheReadCostPer1M": 0.75,
+    "cacheWriteCostPer1M": 3.75
+  },
+  "grok-4-1-fast-non-reasoning": {
+    "inputCostPer1M": 0.2,
+    "outputCostPer1M": 0.5,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.25
+  },
+  "grok-4-1-fast": {
+    "inputCostPer1M": 0.2,
+    "outputCostPer1M": 0.5,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.25
+  },
+  "grok-4-fast-non-reasoning": {
+    "inputCostPer1M": 0.2,
+    "outputCostPer1M": 0.5,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.25
+  },
+  "grok-4-fast": {
+    "inputCostPer1M": 0.2,
+    "outputCostPer1M": 0.5,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.25
+  },
+  "grok-4.20-0309-non-reasoning": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 6,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "grok-4.20-0309-reasoning": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 6,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "grok-4.20-multi-agent-0309": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 6,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "grok-4.3": {
+    "inputCostPer1M": 1.25,
+    "outputCostPer1M": 2.5,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 1.5625
+  },
+  "grok-4": {
+    "inputCostPer1M": 3,
+    "outputCostPer1M": 15,
+    "cacheReadCostPer1M": 0.75,
+    "cacheWriteCostPer1M": 3.75
+  },
+  "grok-beta": {
+    "inputCostPer1M": 5,
+    "outputCostPer1M": 15,
+    "cacheReadCostPer1M": 5,
+    "cacheWriteCostPer1M": 6.25
+  },
+  "grok-code-fast-1": {
+    "inputCostPer1M": 0.2,
+    "outputCostPer1M": 1.5,
+    "cacheReadCostPer1M": 0.02,
+    "cacheWriteCostPer1M": 0.25
+  },
+  "grok-vision-beta": {
+    "inputCostPer1M": 5,
+    "outputCostPer1M": 15,
+    "cacheReadCostPer1M": 5,
+    "cacheWriteCostPer1M": 6.25
+  },
+  "codestral-latest": {
+    "inputCostPer1M": 0.3,
+    "outputCostPer1M": 0.9,
+    "cacheReadCostPer1M": 0.03,
+    "cacheWriteCostPer1M": 0.375
+  },
+  "devstral-2512": {
+    "inputCostPer1M": 0.4,
+    "outputCostPer1M": 2,
+    "cacheReadCostPer1M": 0.04000000000000001,
+    "cacheWriteCostPer1M": 0.5
+  },
+  "devstral-medium-2507": {
+    "inputCostPer1M": 0.4,
+    "outputCostPer1M": 2,
+    "cacheReadCostPer1M": 0.04000000000000001,
+    "cacheWriteCostPer1M": 0.5
+  },
+  "devstral-medium-latest": {
+    "inputCostPer1M": 0.4,
+    "outputCostPer1M": 2,
+    "cacheReadCostPer1M": 0.04000000000000001,
+    "cacheWriteCostPer1M": 0.5
+  },
+  "devstral-small-2505": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.3,
+    "cacheReadCostPer1M": 0.010000000000000002,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "devstral-small-2507": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.3,
+    "cacheReadCostPer1M": 0.010000000000000002,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "magistral-medium-latest": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 5,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "magistral-small": {
+    "inputCostPer1M": 0.5,
+    "outputCostPer1M": 1.5,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.625
+  },
+  "ministral-3b-latest": {
+    "inputCostPer1M": 0.04,
+    "outputCostPer1M": 0.04,
+    "cacheReadCostPer1M": 0.004,
+    "cacheWriteCostPer1M": 0.05
+  },
+  "ministral-8b-latest": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.1,
+    "cacheReadCostPer1M": 0.010000000000000002,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "mistral-embed": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0,
+    "cacheReadCostPer1M": 0.010000000000000002,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "mistral-large-2411": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 6,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "mistral-large-2512": {
+    "inputCostPer1M": 0.5,
+    "outputCostPer1M": 1.5,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.625
+  },
+  "mistral-large-latest": {
+    "inputCostPer1M": 0.5,
+    "outputCostPer1M": 1.5,
+    "cacheReadCostPer1M": 0.05,
+    "cacheWriteCostPer1M": 0.625
+  },
+  "mistral-medium-2505": {
+    "inputCostPer1M": 0.4,
+    "outputCostPer1M": 2,
+    "cacheReadCostPer1M": 0.04000000000000001,
+    "cacheWriteCostPer1M": 0.5
+  },
+  "mistral-medium-2508": {
+    "inputCostPer1M": 0.4,
+    "outputCostPer1M": 2,
+    "cacheReadCostPer1M": 0.04000000000000001,
+    "cacheWriteCostPer1M": 0.5
+  },
+  "mistral-medium-2604": {
+    "inputCostPer1M": 1.5,
+    "outputCostPer1M": 7.5,
+    "cacheReadCostPer1M": 0.15000000000000002,
+    "cacheWriteCostPer1M": 1.875
+  },
+  "mistral-nemo": {
+    "inputCostPer1M": 0.15,
+    "outputCostPer1M": 0.15,
+    "cacheReadCostPer1M": 0.015,
+    "cacheWriteCostPer1M": 0.1875
+  },
+  "mistral-small-2506": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.3,
+    "cacheReadCostPer1M": 0.010000000000000002,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "mistral-small-2603": {
+    "inputCostPer1M": 0.15,
+    "outputCostPer1M": 0.6,
+    "cacheReadCostPer1M": 0.015,
+    "cacheWriteCostPer1M": 0.1875
+  },
+  "mistral-small-latest": {
+    "inputCostPer1M": 0.15,
+    "outputCostPer1M": 0.6,
+    "cacheReadCostPer1M": 0.015,
+    "cacheWriteCostPer1M": 0.1875
+  },
+  "open-mistral-7b": {
+    "inputCostPer1M": 0.25,
+    "outputCostPer1M": 0.25,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.3125
+  },
+  "open-mixtral-8x22b": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 6,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "open-mixtral-8x7b": {
+    "inputCostPer1M": 0.7,
+    "outputCostPer1M": 0.7,
+    "cacheReadCostPer1M": 0.06999999999999999,
+    "cacheWriteCostPer1M": 0.875
+  },
+  "pixtral-12b": {
+    "inputCostPer1M": 0.15,
+    "outputCostPer1M": 0.15,
+    "cacheReadCostPer1M": 0.015,
+    "cacheWriteCostPer1M": 0.1875
+  },
+  "pixtral-large-latest": {
+    "inputCostPer1M": 2,
+    "outputCostPer1M": 6,
+    "cacheReadCostPer1M": 0.2,
+    "cacheWriteCostPer1M": 2.5
+  },
+  "deepseek-r1-distill-llama-70b": {
+    "inputCostPer1M": 0.75,
+    "outputCostPer1M": 0.99,
+    "cacheReadCostPer1M": 0.07500000000000001,
+    "cacheWriteCostPer1M": 0.9375
+  },
+  "gemma2-9b-it": {
+    "inputCostPer1M": 0.2,
+    "outputCostPer1M": 0.2,
+    "cacheReadCostPer1M": 0.020000000000000004,
+    "cacheWriteCostPer1M": 0.25
+  },
+  "llama-3.1-8b-instant": {
+    "inputCostPer1M": 0.05,
+    "outputCostPer1M": 0.08,
+    "cacheReadCostPer1M": 0.005000000000000001,
+    "cacheWriteCostPer1M": 0.0625
+  },
+  "llama-3.3-70b-versatile": {
+    "inputCostPer1M": 0.59,
+    "outputCostPer1M": 0.79,
+    "cacheReadCostPer1M": 0.059,
+    "cacheWriteCostPer1M": 0.7374999999999999
+  },
+  "llama-guard-3-8b": {
+    "inputCostPer1M": 0.2,
+    "outputCostPer1M": 0.2,
+    "cacheReadCostPer1M": 0.020000000000000004,
+    "cacheWriteCostPer1M": 0.25
+  },
+  "llama3-70b-8192": {
+    "inputCostPer1M": 0.59,
+    "outputCostPer1M": 0.79,
+    "cacheReadCostPer1M": 0.059,
+    "cacheWriteCostPer1M": 0.7374999999999999
+  },
+  "llama3-8b-8192": {
+    "inputCostPer1M": 0.05,
+    "outputCostPer1M": 0.08,
+    "cacheReadCostPer1M": 0.005000000000000001,
+    "cacheWriteCostPer1M": 0.0625
+  },
+  "mistral-saba-24b": {
+    "inputCostPer1M": 0.79,
+    "outputCostPer1M": 0.79,
+    "cacheReadCostPer1M": 0.07900000000000001,
+    "cacheWriteCostPer1M": 0.9875
+  },
+  "qwen-qwq-32b": {
+    "inputCostPer1M": 0.29,
+    "outputCostPer1M": 0.39,
+    "cacheReadCostPer1M": 0.028999999999999998,
+    "cacheWriteCostPer1M": 0.3625
+  },
+  "gpt-oss-120b": {
+    "inputCostPer1M": 0.25,
+    "outputCostPer1M": 0.69,
+    "cacheReadCostPer1M": 0.025,
+    "cacheWriteCostPer1M": 0.3125
+  },
+  "llama3.1-8b": {
+    "inputCostPer1M": 0.1,
+    "outputCostPer1M": 0.1,
+    "cacheReadCostPer1M": 0.010000000000000002,
+    "cacheWriteCostPer1M": 0.125
+  },
+  "qwen-3-235b-a22b-instruct-2507": {
+    "inputCostPer1M": 0.6,
+    "outputCostPer1M": 1.2,
+    "cacheReadCostPer1M": 0.06,
+    "cacheWriteCostPer1M": 0.75
+  },
+  "zai-glm-4.7": {
+    "inputCostPer1M": 2.25,
+    "outputCostPer1M": 2.75,
+    "cacheReadCostPer1M": 0,
+    "cacheWriteCostPer1M": 0
   }
 }
