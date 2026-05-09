@@ -36,7 +36,10 @@ export default function Sidebar({ activePage, selectedProjectId, onNavigate }: S
 
   function handleRefresh(): void {
     setRefreshing(true)
-    window.tokenUsage.refresh().finally(() => {
+    Promise.all([
+      window.tokenUsage.refresh(),
+      window.tokenUsage.syncModels()
+    ]).finally(() => {
       setTimeout(() => setRefreshing(false), 600)
     })
   }

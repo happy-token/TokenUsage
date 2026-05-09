@@ -17,6 +17,7 @@ import {
   deleteProject
 } from './store'
 import { runOptimize, runGlobalOptimize, getAggregatedFindings } from './optimize'
+import { syncModels } from './sync-models'
 
 type RefreshCallback = () => void
 let _onRefresh: RefreshCallback | null = null
@@ -98,5 +99,9 @@ export function registerIpcHandlers(ipcMain: IpcMain): void {
     try { parsed = new URL(url) } catch { return }
     if (!['https:', 'http:'].includes(parsed.protocol)) return
     shell.openExternal(url)
+  })
+
+  ipcMain.handle('models:sync', async () => {
+    return syncModels()
   })
 }
