@@ -35,9 +35,9 @@
 
 ## Demo Video
 
-[![Watch the TokenUsage demo video](./resources/github-cover.png)](./resources/promo/MainPromo.mp4)
+Watch the demo on [happy-code.cn/tokenusage](https://happy-code.cn/tokenusage), or open the direct video once deployed:
 
-[Watch the English demo video](./resources/promo/MainPromo.mp4)
+[English demo video](https://happy-code.cn/videos/tokenusage/MainPromo.mp4)
 
 TokenUsage is more than a token counter. It's a **token quantification tool** that reads your [Claude Code](https://claude.ai/code) session logs and answers three critical questions:
 
