@@ -35,11 +35,11 @@
 |---|---|
 | ![微信二维码](./resources/accounts/wechat_qr.png) | ![飞书二维码](./resources/accounts/feishu_qr.png) |
 
-<p align="center">
-  <video src="./resources/promo/MainPromoCN.mp4" controls width="100%" muted playsinline>
-    你的浏览器不支持 video 标签。
-  </video>
-</p>
+## 演示视频
+
+[![观看 TokenUsage 中文演示视频](./resources/github-cover.png)](./resources/promo/MainPromoCN.mp4)
+
+[观看中文演示视频](./resources/promo/MainPromoCN.mp4)
 
 TokenUsage 不止是 Token 统计工具，更是一套 **Token 量化分析系统**，读取 [Claude Code](https://claude.ai/code) 本地会话日志，回答三个核心问题：
 

@@ -35,11 +35,11 @@
 |---|---|
 | ![WeChat QR code](./resources/accounts/wechat_qr.png) | ![Feishu QR code](./resources/accounts/feishu_qr.png) |
 
-<p align="center">
-  <video src="./resources/promo/MainPromo.mp4" controls width="100%" muted playsinline>
-    Your browser does not support the video tag.
-  </video>
-</p>
+## Demo Video
+
+[![Watch the TokenUsage demo video](./resources/github-cover.png)](./resources/promo/MainPromo.mp4)
+
+[Watch the English demo video](./resources/promo/MainPromo.mp4)
 
 TokenUsage is more than a token counter. It's a **token quantification tool** that reads your [Claude Code](https://claude.ai/code) session logs and answers three critical questions:
 
