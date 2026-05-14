@@ -1,6 +1,10 @@
 # TokenUsage
 
 <p align="center">
+  <img src="./resources/github-cover.png" alt="TokenUsage GitHub 封面图" width="100%" />
+</p>
+
+<p align="center">
   <strong>你的 Token 量化与优化指挥中心 — 精准知道每个 Token 花在哪里、为什么花、如何花得更少。</strong>
 </p>
 
@@ -15,6 +19,27 @@
 </p>
 
 ---
+
+## 链接与账号
+
+| 渠道 | 账号 |
+|---|---|
+| 官网 | [happy-code.cn](https://happy-code.cn) |
+| X / Twitter | [@HappyTokenAI](https://x.com/HappyTokenAI) |
+| 微信 | HappyTokenAI |
+| Telegram | [@HappyTokenAI](https://t.me/HappyTokenAI) |
+| 飞书 | HappyToken |
+| 邮箱后缀 | `@happy-token.cn` |
+
+| 微信二维码 | 飞书二维码 |
+|---|---|
+| ![微信二维码](./resources/accounts/wechat_qr.png) | ![飞书二维码](./resources/accounts/feishu_qr.png) |
+
+<p align="center">
+  <video src="./resources/promo/MainPromoCN.mp4" controls width="100%" muted playsinline>
+    你的浏览器不支持 video 标签。
+  </video>
+</p>
 
 TokenUsage 不止是 Token 统计工具，更是一套 **Token 量化分析系统**，读取 [Claude Code](https://claude.ai/code) 本地会话日志，回答三个核心问题：
 

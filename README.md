@@ -1,6 +1,10 @@
 # TokenUsage
 
 <p align="center">
+  <img src="./resources/github-cover.png" alt="TokenUsage GitHub cover" width="100%" />
+</p>
+
+<p align="center">
   <strong>Your Token Quantification & Optimization Command Center — Know exactly where every token goes, why it&#39;s spent, and how to spend less.</strong>
 </p>
 
@@ -15,6 +19,27 @@
 </p>
 
 ---
+
+## Links & Contact
+
+| Channel | Account |
+|---|---|
+| Website | [happy-code.cn](https://happy-code.cn) |
+| X / Twitter | [@HappyTokenAI](https://x.com/HappyTokenAI) |
+| WeChat | HappyTokenAI |
+| Telegram | [@HappyTokenAI](https://t.me/HappyTokenAI) |
+| Feishu | HappyToken |
+| Email domain | `@happy-token.cn` |
+
+| WeChat QR | Feishu QR |
+|---|---|
+| ![WeChat QR code](./resources/accounts/wechat_qr.png) | ![Feishu QR code](./resources/accounts/feishu_qr.png) |
+
+<p align="center">
+  <video src="./resources/promo/MainPromo.mp4" controls width="100%" muted playsinline>
+    Your browser does not support the video tag.
+  </video>
+</p>
 
 TokenUsage is more than a token counter. It's a **token quantification tool** that reads your [Claude Code](https://claude.ai/code) session logs and answers three critical questions:
 
