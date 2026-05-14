@@ -35,9 +35,9 @@
 
 ## 演示视频
 
-在 [happy-code.cn/tokenusage](https://happy-code.cn/tokenusage) 查看演示，或在视频部署后直接打开：
+[![TokenUsage 中文演示动图预览](./resources/promo/MainPromoCN-preview.webp)](https://happy-code.cn/tokenusage)
 
-[中文演示视频](https://happy-code.cn/videos/tokenusage/MainPromoCN.mp4)
+[观看完整中文演示视频](https://happy-code.cn/tokenusage)
 
 TokenUsage 不止是 Token 统计工具，更是一套 **Token 量化分析系统**，读取 [Claude Code](https://claude.ai/code) 本地会话日志，回答三个核心问题：
 
