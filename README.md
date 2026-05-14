@@ -20,20 +20,18 @@
 
 ---
 
-## Links & Contact
+## Contents
 
-| Channel | Account |
+| Section | Jump |
 |---|---|
-| Website | [happy-code.cn](https://happy-code.cn) |
-| X / Twitter | [@HappyTokenAI](https://x.com/HappyTokenAI) |
-| WeChat | HappyTokenAI |
-| Telegram | [@HappyTokenAI](https://t.me/HappyTokenAI) |
-| Feishu | HappyToken |
-| Email domain | `@happy-token.cn` |
+| Demo | [Demo Video](#demo-video) |
+| Product overview | [How It's Different](#why-tokenusage) |
+| Screens | [Screenshots](#screenshots) |
+| Capabilities | [Features](#features) |
+| Setup | [Getting Started](#getting-started) · [Installation](#installation) |
+| Help | [FAQ](#faq) · [Links & Contact](#links-contact) |
 
-| WeChat QR | Feishu QR |
-|---|---|
-| ![WeChat QR code](./resources/accounts/wechat_qr.png) | ![Feishu QR code](./resources/accounts/feishu_qr.png) |
+<a id="demo-video"></a>
 
 ## Demo Video
 
@@ -49,6 +47,8 @@ TokenUsage is more than a token counter. It's a **token quantification tool** th
 
 All in a native Electron window. All data stays local.
 
+<a id="why-tokenusage"></a>
+
 ## How It's Different
 
 Most tools stop at "you spent $X this month." TokenUsage tells you **why** and **what to do about it**:
@@ -60,6 +60,8 @@ Most tools stop at "you spent $X this month." TokenUsage tells you **why** and *
 | Health grade per project (A–F) | An "F" project with 35 findings isn't bad luck — it's a broken setup you can fix in 10 minutes |
 | Read-to-edit ratio | Editing files without reading context first drives up retries and cost |
 | Unused MCP servers / agents / skills | Each one silently adds ~2K tokens to every single session — even if never called |
+
+<a id="screenshots"></a>
 
 ## 📸 Screenshots
 
@@ -169,6 +171,8 @@ TokenUsage makes this invisible problem visible. If your overview dashboard show
 
 > The longer your sessions and the larger your CLAUDE.md, the more dramatic the gap. A project with a 400-line CLAUDE.md, 5 MCP servers, and 10 custom agents through a relay service is burning ~15K–20K tokens on every single cold start. TokenUsage detects this and tells you exactly what to trim.
 
+<a id="features"></a>
+
 ## ✨ Features
 
 - **Overview Dashboard** — KPI strip (total spend, sessions, cache hit rate, active projects) with daily activity bars and per-project cost bars
@@ -207,6 +211,8 @@ TokenUsage makes this invisible problem visible. If your overview dashboard show
 - **pnpm** 9+
 - **macOS** (primary target), Windows, or Linux
 
+<a id="getting-started"></a>
+
 ## ⚡ Getting Started
 
 ```bash
@@ -222,6 +228,8 @@ pnpm run dev
 ```
 
 The app automatically discovers Claude Code session logs at `~/.claude/projects/**/*.jsonl` and begins parsing them. No configuration required.
+
+<a id="installation"></a>
 
 ## 📦 Installation
 
@@ -302,6 +310,8 @@ Cost is computed locally from token counts using official pricing rates (USD per
 
 **All data stays on your machine.** Nothing is sent to any server. The SQLite database is stored in Electron's [app data directory](https://www.electronjs.org/docs/latest/api/app#appgetpathname). No telemetry, no tracking, no analytics — just local files.
 
+<a id="faq"></a>
+
 ## 🙋 FAQ
 
 <details>
@@ -375,6 +385,23 @@ We'd love to hear from you! Here's how to connect:
 | **WeChat (微信)** | _Coming soon_ | Chinese-speaking user community |
 
 > **Community platform recommendation:** Discord is the standard for international developer tools (think VS Code, Electron, React communities). Telegram is very popular in Asia, Eastern Europe, and the crypto/tech crowd. WeChat is essential for the Chinese developer ecosystem. We recommend joining whichever platform you're most comfortable with — we'll share announcements across all channels.
+
+<a id="links-contact"></a>
+
+## Links & Contact
+
+| Channel | Account |
+|---|---|
+| Website | [happy-code.cn](https://happy-code.cn) |
+| X / Twitter | [@HappyTokenAI](https://x.com/HappyTokenAI) |
+| WeChat | HappyTokenAI |
+| Telegram | [@HappyTokenAI](https://t.me/HappyTokenAI) |
+| Feishu | HappyToken |
+| Email domain | `@happy-token.cn` |
+
+| WeChat QR | Feishu QR |
+|---|---|
+| ![WeChat QR code](./resources/accounts/wechat_qr.png) | ![Feishu QR code](./resources/accounts/feishu_qr.png) |
 
 ## 🤝 Contributing
 
