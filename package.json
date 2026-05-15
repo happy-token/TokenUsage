@@ -1,6 +1,6 @@
 {
   "name": "tokenusage",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Claude Code usage analysis desktop app — optimize your AI coding habits",
   "type": "module",
   "main": "dist-electron/main/index.js",
@@ -14,8 +14,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit",
-    "sync-models": "npx tsx scripts/sync-models.ts",
-    "postinstall": "electron-builder install-app-deps"
+    "sync-models": "npx tsx scripts/sync-models.ts"
   },
   "dependencies": {
     "better-sqlite3": "^11.0.0",
