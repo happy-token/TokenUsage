@@ -191,16 +191,16 @@ describe('computeCostFromTokens — pricing math', () => {
   })
 
   it('computes correct cost for claude-haiku-4-5 (output only)', () => {
-    // 1M output tokens @ $4/1M = $4.00
+    // 1M output tokens @ $5/1M = $5.00
     const cost = computeCostFromTokens('claude-haiku-4-5-20251001', 0, 1_000_000, 0, 0)
-    expect(cost).toBeCloseTo(4.0, 5)
+    expect(cost).toBeCloseTo(5.0, 5)
   })
 
   it('sums all token types correctly for claude-opus-4-7', () => {
-    // 100k input @ $15/1M + 50k output @ $75/1M + 200k cacheRead @ $1.5/1M + 10k cacheWrite @ $18.75/1M
-    // = 1.5 + 3.75 + 0.3 + 0.1875 = 5.7375
+    // 100k input @ $5/1M + 50k output @ $25/1M + 200k cacheRead @ $0.5/1M + 10k cacheWrite @ $6.25/1M
+    // = 0.5 + 1.25 + 0.1 + 0.0625 = 1.9125
     const cost = computeCostFromTokens('claude-opus-4-7', 100_000, 50_000, 200_000, 10_000)
-    expect(cost).toBeCloseTo(5.7375, 4)
+    expect(cost).toBeCloseTo(1.9125, 4)
   })
 
   it('matches by prefix for versioned model names', () => {

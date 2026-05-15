@@ -1,6 +1,6 @@
 {
   "name": "tokenusage",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Claude Code usage analysis desktop app — optimize your AI coding habits",
   "type": "module",
   "main": "dist-electron/main/index.js",
@@ -64,7 +64,8 @@
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "entitlements": "resources/entitlements.mac.plist",
-      "entitlementsInherit": "resources/entitlements.mac.plist"
+      "entitlementsInherit": "resources/entitlements.mac.plist",
+      "notarize": false
     },
     "win": {
       "target": [
