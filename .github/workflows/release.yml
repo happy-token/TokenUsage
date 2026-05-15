@@ -37,7 +37,7 @@ jobs:
           CSC_LINK_BASE64: ${{ secrets.CSC_LINK }}
 
       - name: Build & package (macOS)
-        run: pnpm run package -- --mac --publish never
+        run: pnpm run build && npx electron-builder --mac --publish never
         env:
           CSC_LINK: ${{ steps.cert.outputs.path }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
@@ -78,7 +78,7 @@ jobs:
         run: pnpm install
 
       - name: Build & package (Windows)
-        run: pnpm run package -- --win --publish never
+        run: pnpm run build && npx electron-builder --win --publish never
 
       - name: Upload Windows artifacts
         uses: softprops/action-gh-release@v2
@@ -106,7 +106,7 @@ jobs:
         run: pnpm install
 
       - name: Build & package (Linux)
-        run: pnpm run package -- --linux --publish never
+        run: pnpm run build && npx electron-builder --linux --publish never
 
       - name: Upload Linux artifacts
         uses: softprops/action-gh-release@v2

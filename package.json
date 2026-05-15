@@ -1,6 +1,6 @@
 {
   "name": "tokenusage",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Claude Code usage analysis desktop app — optimize your AI coding habits",
   "type": "module",
   "main": "dist-electron/main/index.js",
