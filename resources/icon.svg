@@ -5,24 +5,24 @@
       <stop offset="100%" stop-color="#d99e22" />
     </linearGradient>
     <clipPath id="squircle">
-      <rect x="4" y="4" width="32" height="32" rx="7" ry="7" />
+      <rect x="2" y="2" width="36" height="36" rx="8" ry="8" />
     </clipPath>
   </defs>
 
-  <!-- Squircle background: 10% padding matches macOS icon spec -->
-  <rect x="4" y="4" width="32" height="32" rx="7" ry="7" fill="url(#bg)" />
+  <!-- Squircle background with moderate padding for app icon contexts -->
+  <rect x="2" y="2" width="36" height="36" rx="8" ry="8" fill="url(#bg)" />
 
   <!-- Face elements clipped to squircle -->
   <g clip-path="url(#squircle)">
     <!-- Eyes -->
-    <circle cx="15" cy="16" r="2.8" fill="white" />
-    <circle cx="25" cy="16" r="2.8" fill="white" />
+    <circle cx="14.375" cy="15.5" r="3.15" fill="white" />
+    <circle cx="25.625" cy="15.5" r="3.15" fill="white" />
 
     <!-- Smile arc -->
-    <path d="M11.5,22 Q20,30 28.5,22"
-          stroke="white" stroke-width="3.2" stroke-linecap="round" fill="none" />
+    <path d="M10.4375,22.25 Q20,31.25 29.5625,22.25"
+          stroke="white" stroke-width="3.6" stroke-linecap="round" fill="none" />
 
     <!-- Stem from smile center -->
-    <rect x="18.5" y="26.5" width="3" height="5.5" rx="1.5" fill="white" />
+    <rect x="18.3125" y="27.3125" width="3.375" height="6.1875" rx="1.6875" fill="white" />
   </g>
 </svg>
